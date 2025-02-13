@@ -1,5 +1,5 @@
 ---
-title: "YOUR TITLE GOES HERE"
+title: "Website!"
 ---
 Basic text
 
