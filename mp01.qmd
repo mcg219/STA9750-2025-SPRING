@@ -1,0 +1,77 @@
+---
+title: "mp01"
+---
+
+# Intro
+
+Even as a New York Resident/Taxpayer you may think you have an idea about what kind of City jobs exist, how many people the state employs, and how much money some of these workers make. In this analysis we will take a dive into publicly available NYC payroll data, to get some further insight.
+
+## A bit about the data.
+
+The data in this dataset ranges from 2014 to 2024, and contains over 6 million entries.
+
+# Quick Facts
+
+1.  Which job title has the highest base rate of pay?
+
+Chair
+
+2.  Which individual & in what year had the single highest city total payroll (regular and overtime combined)?
+
+Gregory P. Russ - 2022
+
+3.  Which individual worked the most overtime hours in this data set?
+
+James Ineternicola
+
+4.  Which agency has the highest average total annual payroll (base and overtime pay per employee)?
+
+City Council
+
+5.  Which agency has the most employees on payroll in each year?
+
+2014 - 2020 = DEPT OF ED PEDAGOGICAL
+
+2021 = DEPT OF ED PER SESSION TEACHER
+
+2022 = DEPT OF ED PEDAGOGICAL
+
+2023 = POLICE DEPARTMENT
+
+2024 = DEPT OF ED PEDAGOGICAL
+
+6.  Which agency has the highest overtime usage (compared to regular hours)?
+
+BOARD OF ELECTION
+
+7.  What is the average salary of employees who work outside the five boroughs? (That is, whose work_location_borough is not one of the five counties.)
+
+\$78,332.11
+
+1.  How much has the city’s aggregate payroll grown over the past 10 years?
+
+\$6,739,288,550
+
+# Policy I: Capping Salaries at Mayoral Level
+
+Analysis =
+
+1.  Total Mayor pay for each fiscal year
+
+Employees who made more than this amount this fiscal year
+
+2.  Total savings if these employees’ compensation were capped at the mayor’s salary
+
+3.  Agencies and job titles which bear the brunt of this policy
+
+While Capping the salaries at Mayoral level should be a good idea on paper,I would not recommend implementing this policy change. There is a specific fundamental issue with this that I would like to highlight, and this issue is that for a lot of jobs that pay more than the mayoral level, the average pay is so much higher, that the city would end up being completely unable to maintain any staff in those areas.
+
+# Policy II: Increasing Staffing to Reduce Overtime Expenses
+
+Analysis =
+
+1.  Total number of overtime hours worked and see how many full-time employees it would take to replace that much overtime.
+2.  Total savings possible by converting all overtime hours to regular time hours for (new employees), for each combination of agency and job title.
+3.  Aggregate savings possible by agency.
+
+While hiring additional workers to mitigate or eliminate overtime hours, a crucial factor that we do not have here, in order to weigh the savings of hiring more workers, is hiring costs. Additionally, while this pairs with hiring costs, another thing to consider are jobs that are incredibly niche, specific to NYC, and important. Some of these jobs might have such a high hiring cost that even attempting to offload overtime hours would be incredibly expensive.
