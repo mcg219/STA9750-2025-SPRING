@@ -1,0 +1,418 @@
+---
+title: "Mini Project 2"
+author: "mcg219"
+output:
+  html_document:
+    code_folding: hide  # Enables folding of code chunks
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse = TRUE)  # Ensures code is visible but collapsible
+
+
+# GTA IV Green Transit Awards – Press Release
+
+**For Immediate Release**\
+**Date:** March 26, 2025
+
+------------------------------------------------------------------------
+
+## Introduction
+
+The GTA IV (Green Transit Awards) highlight transit agencies that excel in reducing greenhouse gas (GHG) emissions and operating sustainably. In this edition, we present four awards, each grounded in specific data-driven metrics:
+
+-   **Greenest Transit Agency** – Lowest lbs CO₂ per UPT\
+-   **Most Emissions Avoided** – Difference between hypothetical “all-cars” scenario and actual emissions\
+-   **Electrification Champion** – Among agencies with a 100% electric ratio, the one with the highest total vehicle miles traveled\
+-   **Worst Occupancy** – Lowest ratio of unlinked passenger trips to vehicle miles traveled
+
+> **Note:** This press release also includes a brief Q&A section summarizing key insights from separate analyses of state-level energy data and additional NTD (National Transit Database) service information.
+
+------------------------------------------------------------------------
+
+## 1. Greenest Transit Agency
+
+### Award Metric
+
+$$
+\text{CO₂ per UPT} = \frac{\text{Total Agency Pounds CO₂}}{\text{Total Agency Unlinked Passenger Trips}}
+$$
+
+-   **Winner:** City of Seattle\
+-   **Performance:** 0.069 lb CO₂ per unlinked passenger trip
+
+### Comparison to Median
+
+The median agency for this metric is Ms Coast Transportation Authority, at 7.16 lb per trip.\
+Seattle emits barely 1% as much CO₂ per passenger trip as the median—a remarkable feat of efficiency.
+
+------------------------------------------------------------------------
+
+## 2. Most Emissions Avoided
+
+### Award Metric
+
+-   Assume each transit trip replaced a 5-mile solo car trip.
+
+-   Use 24 MPG and 19.6 lb CO₂/gallon to estimate hypothetical “all-cars” emissions.
+
+-   Subtract actual transit emissions from the hypothetical scenario.
+
+-   **Winner:** MTA New York City Transit\
+
+-   **Performance:** \~9.12 billion pounds of CO₂ avoided
+
+### Comparison to Median
+
+The median agency for this measure is Baldwin County Commission, with -2.22 million pounds avoided (i.e., it emits more than if passengers had driven alone).\
+MTA’s massive positive gap testifies to how high-ridership transit can drastically slash emissions.
+
+------------------------------------------------------------------------
+
+## 3. Electrification Champion
+
+### Updated Award Metric
+
+We first identify agencies that operate fully electric—that is, those with an electric ratio of 1.0. Formally:
+
+$$
+\text{Electric Ratio} = \frac{\text{Electric Battery} + \text{Electric Propulsion}}{\sum (\text{All Fuel/Energy Types})}
+$$
+
+Agencies with an Electric Ratio of **1.0** are considered “fully electric.”\
+Among these fully electric agencies, the Electrification Champion is the one with the highest total vehicle miles traveled.
+
+### Winner Identification
+
+1.  **Filter** the dataset to include only agencies that report an Electric Ratio of 1.0.
+2.  **Sum** total miles (e.g., using the `MILES_Per_Mode` column) for each agency in that filtered group.
+3.  The agency with the greatest total miles wins the award.
+
+-   **Winner:** Port Authority Trans-Hudson Corporation\
+-   **Performance:** 268,404,831 total miles (fully electric)
+
+### Median Agency Reference
+
+The overall median electric share among all agencies is effectively 0% (most agencies do not report any electric usage).\
+Achieving a 100% electric ratio—and doing so across a high volume of total miles—underscores PATH’s commitment to zero-emission transit at scale.
+
+------------------------------------------------------------------------
+
+## 4. Worst Occupancy
+
+### New Award Metric
+
+$$
+\text{Occupancy Ratio} = \frac{\text{Unlinked Passenger Trips (UPT)}}{\text{Vehicle Miles Traveled}}
+$$
+
+We define “worst” as the agency with the lowest occupancy ratio, meaning they operate many miles but serve very few passengers per mile.
+
+### Winner Identification (From the Provided Dataset)
+
+1.  **Group** by Agency Name and sum two columns: `UPT_Per_Mode` and `MILES_Per_Mode`.
+2.  **Calculate:**\
+    $$ \text{occupancy} = \frac{\text{UPT\_Per\_Mode}}{\text{MILES\_Per\_Mode}} $$
+3.  The agency with the minimum occupancy is designated the “Worst Occupancy” recipient.
+
+-   **Winner:** Alaska Railroad Corporation\
+-   **Performance:** 0.008071188 passengers per mile
+
+### Comparison to Median
+
+The median agency for this measure is Greenville Transit Authority, with 0.1906868 passengers per mile.\
+Such an extremely low occupancy indicates that Alaska Railroad Corporation may be operating highly underutilized routes—running trains with very few passengers over long distances.
+
+------------------------------------------------------------------------
+
+## Additional Q&A
+
+Beyond the GTA IV Awards, we also evaluated state energy profiles (SEP data) and further NTD Service Data. Here are a few highlight questions:
+
+### Task 2: Initial Analysis of SEP Data
+
+-   **Which state has the most expensive retail electricity?**\
+    *Answer:* Hawaii at \$386.00 per 1000 kWh.
+
+-   **Which state has the ‘dirtiest’ electricity mix?**\
+    *Answer:* West Virginia at 1,925 lb CO₂ per MWh.
+
+-   **Average CO₂ (lb) per MWh in the US (weighted)?**\
+    *Answer:* 850.52 lb.
+
+-   **Rarest primary energy source and where?**\
+    *Answer:* Petroleum in Hawaii, costing \$386.00 per 1000 kWh.
+
+-   **How many times cleaner is NY’s energy mix than TX’s?**\
+    *Answer:* About 1.64× cleaner.
+
+### Task 4: Explore NTD Service Data
+
+-   **Which transit service has the most UPT annually?**\
+    *Answer:* MTA New York City Transit (\~2.63 billion UPT).
+
+-   **Average trip length on MTA NYC?**\
+    *Answer:* 3.64 miles.
+
+-   **Longest average trip length in NYC area?**\
+    *Answer:* Private Transportation Corporation.
+
+-   **State with the fewest total miles by public transit?**\
+    *Answer:* New Hampshire (\~3.75 million miles).
+
+-   **Are all states in the data? If not, which are missing?**\
+    *Answer:* Missing states (19 total):\
+    AZ, AR, CA, CO, HI, IA, KS, LA, MO, MT, NE, NV, NM, ND, OK, SD, TX, UT, WY.
+
+------------------------------------------------------------------------
+
+## Concluding Remarks
+
+These four awards illuminate both leading and lagging examples across U.S. transit:
+
+-   **City of Seattle** excels in minimal carbon intensity per passenger trip.
+-   **MTA New York City Transit** avoids an astounding 9+ billion pounds of CO₂.
+-   **Port Authority Trans-Hudson Corporation** emerges as a fully electric leader with high total miles.
+-   **Alaska Railroad Corporation** lags with a particularly low occupancy ratio, suggesting an immediate need for route optimization and strategies to boost ridership.
+
+We hope these findings spark conversations about enhancing sustainability, efficiency, and ridership throughout our transit systems.
+
+------------------------------------------------------------------------
+
+## Methodological Notes
+
+### CO₂ per UPT (Award #1, “Greenest Transit Agency”)
+
+$$
+\text{CO₂ per UPT} = \frac{\text{Total Agency Pounds CO₂}}{\text{Total Agency Unlinked Passenger Trips}}
+$$
+
+### Emissions Avoided (Award #2, “Most Emissions Avoided”)
+
+-   Each unlinked transit trip replaced a hypothetical 5-mile solo car trip.
+-   The car scenario uses 24 MPG and 19.6 lb CO₂/gallon.
+
+$$
+\text{Emissions Avoided} = \text{(Hypothetical Car CO₂)} - \text{(Actual Transit CO₂)}
+$$
+
+### Electric Share (Award #3, “Electrification Champion”)
+
+$$
+\text{Electric Ratio} = \frac{\text{Electric Battery} + \text{Electric Propulsion}}{\text{Bio-Diesel} + \text{Diesel Fuel} + \dots + \text{Electric Battery} + \text{Electric Propulsion} + \dots}
+$$
+
+Agencies with an Electric Ratio of **1.0** (fully electric) are identified. Among that group, the one with the highest total vehicle miles traveled wins.
+
+### Occupancy Ratio (Award #4, “Worst Occupancy”)
+
+$$
+\text{Occupancy} = \frac{\text{Sum of Unlinked Passenger Trips}}{\text{Sum of Vehicle Miles}}
+$$
+
+## Code Apendix
+
+ensure_package <- function(pkg){
+  pkg <- as.character(substitute(pkg))
+  options(repos = c(CRAN = "https://cloud.r-project.org"))
+  if(!require(pkg, character.only=TRUE)) install.packages(pkg)
+  stopifnot(require(pkg, character.only=TRUE))
+}
+
+ensure_package(dplyr) ensure_package(stringr) ensure_package(tidyr) ensure_package(httr2) ensure_package(rvest) ensure_package(datasets) ensure_package(purrr) ensure_package(DT)
+
+# Step 1: Retrieve EIA data for each state and create a summary table
+
+get_eia_sep \<- function(state, abbr){ state_formatted \<- str_to_lower(state) \|\> str_replace_all("\\s", "")
+
+dir_name \<- file.path("data", "mp02") file_name \<- file.path(dir_name, state_formatted)
+
+dir.create(dir_name, showWarnings=FALSE, recursive=TRUE)
+
+if(!file.exists(file_name)){ BASE_URL \<- "https://www.eia.gov" REQUEST \<- request(BASE_URL) \|\> req_url_path("electricity", "state", state_formatted)
+
+```         
+RESPONSE <- req_perform(REQUEST)
+
+resp_check_status(RESPONSE)
+
+writeLines(resp_body_string(RESPONSE), file_name)
+```
+
+}
+
+TABLE \<- read_html(file_name) \|\> html_element("table") \|\> html_table() \|\> mutate(Item = str_to_lower(Item))
+
+if("U.S. rank" %in% colnames(TABLE)){ TABLE \<- TABLE \|\> rename(Rank = `U.S. rank`) }
+
+CO2_MWh \<- TABLE \|\> filter(Item == "carbon dioxide (lbs/mwh)") \|\> pull(Value) \|\> str_replace_all(",", "") \|\> as.numeric()
+
+PRIMARY \<- TABLE \|\> filter(Item == "primary energy source") \|\> pull(Rank)
+
+RATE \<- TABLE \|\> filter(Item == "average retail price (cents/kwh)") \|\> pull(Value) \|\> as.numeric()
+
+GENERATION_MWh \<- TABLE \|\> filter(Item == "net generation (megawatthours)") \|\> pull(Value) \|\> str_replace_all(",", "") \|\> as.numeric()
+
+data.frame( CO2_MWh = CO2_MWh, primary_source = PRIMARY, electricity_price_MWh = RATE \* 10, generation_MWh = GENERATION_MWh, state = state, abbreviation = abbr ) }
+
+EIA_SEP_REPORT \<- map2(state.name, state.abb, get_eia_sep) \|\> list_rbind()
+
+ensure_package(scales) ensure_package(DT)
+
+# Step 2: Display a table with formatted columns
+
+EIA_SEP_REPORT \|\> select(-abbreviation) \|\> arrange(desc(CO2_MWh)) \|\> mutate( CO2_MWh = number(CO2_MWh, big.mark=","), electricity_price_MWh = dollar(electricity_price_MWh), generation_MWh = number(generation_MWh, big.mark=",") ) \|\> rename( `Pounds of CO2 Emitted per MWh of Electricity Produced` = CO2_MWh, `Primary Source of Electricity Generation` = primary_source, `Average Retail Price for 1000 kWh` = electricity_price_MWh, `Total Generation Capacity (MWh)` = generation_MWh, State = state ) \|\> datatable()
+
+# Step 3: Calculate the average CO2 emissions per MWh from the original numeric column
+
+avg_CO2 \<- EIA_SEP_REPORT \|\> summarise(`Average Pounds of CO2 per MWh` = mean(CO2_MWh, na.rm = TRUE))
+
+print(avg_CO2)
+
+# Step 4: Prepare and process NTD Energy data
+
+ensure_package(readxl)
+
+DATA_DIR \<- file.path("data", "mp02") dir.create(DATA_DIR, showWarnings=FALSE, recursive=TRUE)
+
+NTD_ENERGY_FILE \<- file.path(DATA_DIR, "2023_ntd_energy.xlsx")
+
+if(!file.exists(NTD_ENERGY_FILE)){ DS \<- download.file( "https://www.transit.dot.gov/sites/fta.dot.gov/files/2024-10/2023%20Energy%20Consumption.xlsx", destfile=NTD_ENERGY_FILE, method="curl" )
+
+if(DS \| (file.info(NTD_ENERGY_FILE)\$size == 0)){ cat("I was unable to download the NTD Energy File. Please try again.\n") stop("Download failed") } }
+
+NTD_ENERGY_RAW \<- read_xlsx(NTD_ENERGY_FILE)
+
+to_numeric_fill_0 \<- function(x){ x \<- if_else(x == "-", NA, x) replace_na(as.numeric(x), 0) }
+
+NTD_ENERGY \<- NTD_ENERGY_RAW \|\> select( -c( `Reporter Type`, `Reporting Module`, `Other Fuel`, `Other Fuel Description` ) ) \|\> mutate(across(-c(`Agency Name`, `Mode`, `TOS`), to_numeric_fill_0)) \|\> group_by(`NTD ID`, `Mode`, `Agency Name`) \|\> summarize(across(where(is.numeric), sum), .groups = "keep") \|\> mutate(ENERGY = sum(c_across(c(where(is.numeric))))) \|\> filter(ENERGY \> 0) \|\> select(-ENERGY) \|\> ungroup()
+
+slice_sample(NTD_ENERGY , n=10)
+
+# Step 5: Replace mode abbreviations with descriptive names
+
+NTD_ENERGY \<- NTD_ENERGY \|\> mutate(Mode = case_when( Mode == "HR" \~ "Heavy Rail", Mode == "AR" \~ "Automated Rail", Mode == "CB" \~ "Conventional Bus", Mode == "CC" \~ "Commuter Coach", Mode == "CR" \~ "Commuter Rail", Mode == "DR" \~ "Demand Response", Mode == "FB" \~ "Ferry Boat", Mode == "IP" \~ "Intercity Passenger", Mode == "LR" \~ "Light Rail", Mode == "MB" \~ "Motor Bus", Mode == "MG" \~ "Monorail", Mode == "PB" \~ "Paratransit Bus", Mode == "RB" \~ "Rail Bus", Mode == "SR" \~ "Streetcar", Mode == "TB" \~ "Trolley Bus", Mode == "TR" \~ "Transit Rail", Mode == "VP" \~ "Vanpool", Mode == "YR" \~ "Yard Rail", TRUE \~ "Unknown" ))
+
+# Step 6: Prepare and process NTD Service data
+
+library(readr) NTD_SERVICE_FILE \<- file.path(DATA_DIR, "2023_service.csv")
+
+if(!file.exists(NTD_SERVICE_FILE)){ DS \<- download.file( "https://data.transportation.gov/resource/6y83-7vuw.csv", destfile=NTD_SERVICE_FILE, method="curl" )
+
+if(DS \| (file.info(NTD_SERVICE_FILE)\$size == 0)){ cat("I was unable to download the NTD Service File. Please try again.\n") stop("Download failed") } }
+
+NTD_SERVICE_RAW \<- read_csv(NTD_SERVICE_FILE)
+
+NTD_SERVICE \<- NTD_SERVICE_RAW \|\> mutate(`NTD ID` = as.numeric(`_5_digit_ntd_id`)) \|\> rename( Agency = agency, City = max_city, State = max_state, UPT = sum_unlinked_passenger_trips_upt, MILES = sum_passenger_miles ) \|\> select(matches("[^1]", ignore.case=FALSE)) \|\> filter(MILES \> 0)
+
+[^1]: A-Z
+
+slice_sample(NTD_SERVICE , n=10)
+
+# Step 7: Simple queries on NTD_SERVICE
+
+library(dplyr)
+
+# Query 1: Average trip length for MTA NYC
+
+mta_nyc_avg_trip_length \<- NTD_SERVICE %\>% filter(Agency == "MTA New York City Transit") %\>% summarize( total_miles = sum(MILES), total_upt = sum(UPT), avg_trip_length = total_miles / total_upt )
+
+mta_nyc_avg_trip_length
+
+# Query 2: Which transit service in NYC or Brooklyn has the longest average trip length?
+
+nyc_services_longest_trip \<- NTD_SERVICE %\>% filter(City %in% c("New York City", "Brooklyn")) %\>% group_by(Agency) %\>% summarize( total_miles = sum(MILES), total_upt = sum(UPT), avg_trip_length = total_miles / total_upt ) %\>% arrange(desc(avg_trip_length)) %\>% slice(2)
+
+nyc_services_longest_trip
+
+# Query 3: State with the fewest total miles traveled
+
+fewest_miles_by_state \<- NTD_SERVICE %\>% group_by(State) %\>% summarize(total_miles = sum(MILES)) %\>% arrange(total_miles) %\>% slice(1)
+
+fewest_miles_by_state
+
+# Query 4: Check if all states are represented in the data
+
+all_states \<- data.frame( full_name = state.name, abbr = state.abb, stringsAsFactors = FALSE )
+
+unique_states_in_data \<- unique(NTD_SERVICE\$State)
+
+missing_states \<- all_states %\>% filter(!abbr %in% unique_states_in_data)
+
+missing_states
+
+# Step 8: Merge NTD Energy data with NTD Service data, then merge with EIA data
+
+NTD_ENERGY_WITH_STATE \<- merge( NTD_ENERGY, NTD_SERVICE\[ , c("NTD ID", "State")\], by = "NTD ID", all.x = TRUE )
+
+MERGED_TABLE \<- merge( NTD_ENERGY_WITH_STATE, EIA_SEP_REPORT\[ , c("abbreviation", "CO2_MWh")\], by.x = "State", by.y = "abbreviation", all.x = TRUE )
+
+slice_sample(MERGED_TABLE , n=10)
+
+# Step 9: Calculate Pounds_CO2 from various fuel sources and electricity
+
+emission_factors \<- c( "Bio-Diesel" = 22.51, "Bunker Fuel" = 24.781597, "C Natural Gas" = 15.31, "Diesel Fuel" = 22.454989, "Ethanol" = 12.57, "Methonal" = 8.44, "Gasoline" = 20.862476, "Hydrogen" = 0, "Kerosene" = 21.782087, "Liquified Nat Gas" = 4.46, "Liquified Petroleum Gas"= 12.678396 )
+
+MERGED_TABLE\$Pounds_CO2 \<- 0
+
+for(fuel_col in names(emission_factors)) { MERGED_TABLE$Pounds_CO2 <- MERGED_TABLE$Pounds_CO2 + (MERGED_TABLE\[\[fuel_col\]\] \* emission_factors\[\[fuel_col\]\]) }
+
+electric_total_MWh \<- (MERGED_TABLE\[\["Electric Battery"\]\] + MERGED_TABLE\[\["Electric Propulsion"\]\]) / 1000
+
+average_CO2_MWh \<- mean(MERGED_TABLE\$CO2_MWh, na.rm = TRUE) co2_mwh_filled \<- ifelse(is.na(MERGED_TABLE\[\["CO2_MWh"\]\]), average_CO2_MWh, MERGED_TABLE\[\["CO2_MWh"\]\])
+
+MERGED_TABLE$Pounds_CO2 <- MERGED_TABLE$Pounds_CO2 + (electric_total_MWh \* co2_mwh_filled)
+
+# Step 10: Allocate passenger miles and trips proportionally by Pounds_CO2
+
+total_co2 \<- MERGED_TABLE %\>% group_by(`NTD ID`) %\>% summarise(total_Pounds_CO2_Per_Agency = sum(Pounds_CO2, na.rm = TRUE))
+
+MERGED_TABLE \<- MERGED_TABLE %\>% left_join(total_co2, by = "NTD ID") %\>% left_join(NTD_SERVICE %\>% select(`NTD ID`, UPT, MILES), by = "NTD ID") %\>% mutate( UPT_Per_Mode = ifelse(total_Pounds_CO2_Per_Agency == 0, 0, Pounds_CO2 / total_Pounds_CO2_Per_Agency \* UPT), MILES_Per_Mode = ifelse(total_Pounds_CO2_Per_Agency == 0, 0, Pounds_CO2 / total_Pounds_CO2_Per_Agency \* MILES), Pounds_CO2_Per_UPT = ifelse(UPT_Per_Mode == 0, NA, Pounds_CO2 / UPT_Per_Mode), Pounds_CO2_Per_MILES = ifelse(MILES_Per_Mode == 0, NA, Pounds_CO2 / MILES_Per_Mode) )
+
+# Step 11: Summaries and Awards Calculation
+
+library(dplyr) library(readr) library(tidyr)
+
+df_clean \<- MERGED_TABLE %\>% mutate(across(where(is.numeric), \~replace_na(., 0)))
+
+fuel_cols \<- c( "Bio-Diesel", "Bunker Fuel", "Diesel Fuel", "Gasoline", "C Natural Gas", "Liquified Petroleum Gas", "Electric Battery", "Electric Propulsion" )
+
+grouped \<- df_clean %\>% group_by(`Agency Name`) %\>% summarise( Total_Pounds_CO2 = sum(Pounds_CO2, na.rm = TRUE), Total_UPT = sum(UPT, na.rm = TRUE), Total_MILES = sum(MILES, na.rm = TRUE), Electric_Battery = sum(`Electric Battery`, na.rm = TRUE), Electric_Propulsion = sum(`Electric Propulsion`, na.rm = TRUE), Total_Fuel_Usage = sum(across(all_of(fuel_cols)), na.rm = TRUE) ) %\>% ungroup() %\>% mutate( CO2_per_UPT = if_else(Total_UPT \> 0, Total_Pounds_CO2 / Total_UPT, NA_real\_), Passenger_Miles_if_car = Total_UPT \* 5, Car_Gallons = Passenger_Miles_if_car / 24, Car_CO2 = Car_Gallons \* 19.6, Emissions_Avoided = Car_CO2 - Total_Pounds_CO2, Electric_Usage = Electric_Battery + Electric_Propulsion, Electric_Ratio = if_else(Total_Fuel_Usage \> 0, Electric_Usage / Total_Fuel_Usage, NA_real\_), Occupancy_Ratio = if_else(Total_MILES \> 0, Total_UPT / Total_MILES, NA_real\_) )
+
+# Identify Award Winners
+
+award1_winner \<- grouped %\>% filter(!is.na(CO2_per_UPT)) %\>% slice_min(CO2_per_UPT, n = 1)
+
+award2_winner \<- grouped %\>% filter(!is.na(Emissions_Avoided)) %\>% slice_max(Emissions_Avoided, n = 1)
+
+award4_winner \<- grouped %\>% filter(!is.na(Occupancy_Ratio)) %\>% slice_min(Occupancy_Ratio, n = 1)
+
+# Fully-electric subset for Award #3
+
+electrified_only \<- grouped %\>% filter(!is.na(Electric_Ratio), Electric_Ratio == 1)
+
+if (nrow(electrified_only) == 0) { award3_winner \<- NULL reference3 \<- NULL median_miles_electrified \<- NA_real\_ } else { award3_winner \<- electrified_only %\>% slice_max(Total_MILES, n = 1)
+
+median_miles_electrified \<- median(electrified_only\$Total_MILES, na.rm = TRUE)
+
+find_closest_to_median_miles \<- function(data, col) { val \<- median(data\[\[col\]\], na.rm = TRUE) data %\>% mutate(abs_diff = abs(.data\[\[col\]\] - val)) %\>% slice_min(abs_diff, n = 1) %\>% select(-abs_diff) } reference3 \<- find_closest_to_median_miles(electrified_only, "Total_MILES") }
+
+# Find references for Awards #1, #2, #4
+
+find_closest_to_median \<- function(data, metric_col) { med_val \<- median(data\[\[metric_col\]\], na.rm = TRUE) data %\>% mutate(abs_diff = abs(.data\[\[metric_col\]\] - med_val)) %\>% slice_min(abs_diff, n = 1) %\>% select(-abs_diff) }
+
+median_co2_per_upt \<- median(grouped\$CO2_per_UPT, na.rm = TRUE) reference1 \<- grouped %\>% filter(!is.na(CO2_per_UPT)) %\>% find_closest_to_median("CO2_per_UPT")
+
+median_emissions_avoided \<- median(grouped\$Emissions_Avoided, na.rm = TRUE) reference2 \<- grouped %\>% filter(!is.na(Emissions_Avoided)) %\>% find_closest_to_median("Emissions_Avoided")
+
+median_occupancy_ratio \<- median(grouped\$Occupancy_Ratio, na.rm = TRUE) reference4 \<- grouped %\>% filter(!is.na(Occupancy_Ratio)) %\>% find_closest_to_median("Occupancy_Ratio")
+
+# Step 12: Print results
+
+cat("===== GTA IV Awards =====\n\n") cat("---- Award #1: Greenest Transit Agency (lowest CO2_per_UPT) ----\n") cat("Winner:\n") print(award1_winner) cat("\nMedian CO2_per_UPT =", median_co2_per_upt, "\n") cat("Reference agency (closest to median CO2_per_UPT):\n") print(reference1)
+
+cat("\n---- Award #2: Most Emissions Avoided ----\n") cat("Winner:\n") print(award2_winner) cat("\nMedian Emissions_Avoided =", median_emissions_avoided, "\n") cat("Reference agency (closest to median Emissions_Avoided):\n") print(reference2)
+
+cat("\n---- Award #3: Highest Total_MILES Among Fully Electric Agencies ----\n") cat("Fully electric winner:\n") print(award3_winner) cat("Median total miles (fully electric) =", median_miles_electrified, "\n")
+
+cat("\n---- Award #4: Lowest Occupancy Ratio ----\n") cat("Winner:\n") print(award4_winner) cat("\nMedian Occupancy Ratio =", median_occupancy_ratio, "\n") cat("Reference agency (closest to median Occupancy Ratio):\n") print(reference4) \`\`\`

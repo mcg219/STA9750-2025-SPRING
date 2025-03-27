@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="mcg219">
+
+<title>Mini Project 2 – STA 9750 Submission Material</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4cdf367daf71d31206e1fbb7903697be.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">STA 9750 Submission Material</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Mini Project 2</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>mcg219 </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="gta-iv-green-transit-awards-press-release" class="level1">
+<h1>GTA IV Green Transit Awards – Press Release</h1>
+<p><strong>For Immediate Release</strong><br>
+<strong>Date:</strong> March 26, 2025</p>
+<hr>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>The GTA IV (Green Transit Awards) highlight transit agencies that excel in reducing greenhouse gas (GHG) emissions and operating sustainably. In this edition, we present four awards, each grounded in specific data-driven metrics:</p>
+<ul>
+<li><strong>Greenest Transit Agency</strong> – Lowest lbs CO₂ per UPT<br>
+</li>
+<li><strong>Most Emissions Avoided</strong> – Difference between hypothetical “all-cars” scenario and actual emissions<br>
+</li>
+<li><strong>Electrification Champion</strong> – Among agencies with a 100% electric ratio, the one with the highest total vehicle miles traveled<br>
+</li>
+<li><strong>Worst Occupancy</strong> – Lowest ratio of unlinked passenger trips to vehicle miles traveled</li>
+</ul>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> This press release also includes a brief Q&amp;A section summarizing key insights from separate analyses of state-level energy data and additional NTD (National Transit Database) service information.</p>
+</blockquote>
+<hr>
+</section>
+<section id="greenest-transit-agency" class="level2">
+<h2 class="anchored" data-anchor-id="greenest-transit-agency">1. Greenest Transit Agency</h2>
+<section id="award-metric" class="level3">
+<h3 class="anchored" data-anchor-id="award-metric">Award Metric</h3>
+<p><span class="math display">\[
+\text{CO₂ per UPT} = \frac{\text{Total Agency Pounds CO₂}}{\text{Total Agency Unlinked Passenger Trips}}
+\]</span></p>
+<ul>
+<li><strong>Winner:</strong> City of Seattle<br>
+</li>
+<li><strong>Performance:</strong> 0.069 lb CO₂ per unlinked passenger trip</li>
+</ul>
+</section>
+<section id="comparison-to-median" class="level3">
+<h3 class="anchored" data-anchor-id="comparison-to-median">Comparison to Median</h3>
+<p>The median agency for this metric is Ms Coast Transportation Authority, at 7.16 lb per trip.<br>
+Seattle emits barely 1% as much CO₂ per passenger trip as the median—a remarkable feat of efficiency.</p>
+<hr>
+</section>
+</section>
+<section id="most-emissions-avoided" class="level2">
+<h2 class="anchored" data-anchor-id="most-emissions-avoided">2. Most Emissions Avoided</h2>
+<section id="award-metric-1" class="level3">
+<h3 class="anchored" data-anchor-id="award-metric-1">Award Metric</h3>
+<ul>
+<li><p>Assume each transit trip replaced a 5-mile solo car trip.</p></li>
+<li><p>Use 24 MPG and 19.6 lb CO₂/gallon to estimate hypothetical “all-cars” emissions.</p></li>
+<li><p>Subtract actual transit emissions from the hypothetical scenario.</p></li>
+<li><p><strong>Winner:</strong> MTA New York City Transit<br>
+</p></li>
+<li><p><strong>Performance:</strong> ~9.12 billion pounds of CO₂ avoided</p></li>
+</ul>
+</section>
+<section id="comparison-to-median-1" class="level3">
+<h3 class="anchored" data-anchor-id="comparison-to-median-1">Comparison to Median</h3>
+<p>The median agency for this measure is Baldwin County Commission, with -2.22 million pounds avoided (i.e., it emits more than if passengers had driven alone).<br>
+MTA’s massive positive gap testifies to how high-ridership transit can drastically slash emissions.</p>
+<hr>
+</section>
+</section>
+<section id="electrification-champion" class="level2">
+<h2 class="anchored" data-anchor-id="electrification-champion">3. Electrification Champion</h2>
+<section id="updated-award-metric" class="level3">
+<h3 class="anchored" data-anchor-id="updated-award-metric">Updated Award Metric</h3>
+<p>We first identify agencies that operate fully electric—that is, those with an electric ratio of 1.0. Formally:</p>
+<p><span class="math display">\[
+\text{Electric Ratio} = \frac{\text{Electric Battery} + \text{Electric Propulsion}}{\sum (\text{All Fuel/Energy Types})}
+\]</span></p>
+<p>Agencies with an Electric Ratio of <strong>1.0</strong> are considered “fully electric.”<br>
+Among these fully electric agencies, the Electrification Champion is the one with the highest total vehicle miles traveled.</p>
+</section>
+<section id="winner-identification" class="level3">
+<h3 class="anchored" data-anchor-id="winner-identification">Winner Identification</h3>
+<ol type="1">
+<li><strong>Filter</strong> the dataset to include only agencies that report an Electric Ratio of 1.0.</li>
+<li><strong>Sum</strong> total miles (e.g., using the <code>MILES_Per_Mode</code> column) for each agency in that filtered group.</li>
+<li>The agency with the greatest total miles wins the award.</li>
+</ol>
+<ul>
+<li><strong>Winner:</strong> Port Authority Trans-Hudson Corporation<br>
+</li>
+<li><strong>Performance:</strong> 268,404,831 total miles (fully electric)</li>
+</ul>
+</section>
+<section id="median-agency-reference" class="level3">
+<h3 class="anchored" data-anchor-id="median-agency-reference">Median Agency Reference</h3>
+<p>The overall median electric share among all agencies is effectively 0% (most agencies do not report any electric usage).<br>
+Achieving a 100% electric ratio—and doing so across a high volume of total miles—underscores PATH’s commitment to zero-emission transit at scale.</p>
+<hr>
+</section>
+</section>
+<section id="worst-occupancy" class="level2">
+<h2 class="anchored" data-anchor-id="worst-occupancy">4. Worst Occupancy</h2>
+<section id="new-award-metric" class="level3">
+<h3 class="anchored" data-anchor-id="new-award-metric">New Award Metric</h3>
+<p><span class="math display">\[
+\text{Occupancy Ratio} = \frac{\text{Unlinked Passenger Trips (UPT)}}{\text{Vehicle Miles Traveled}}
+\]</span></p>
+<p>We define “worst” as the agency with the lowest occupancy ratio, meaning they operate many miles but serve very few passengers per mile.</p>
+</section>
+<section id="winner-identification-from-the-provided-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="winner-identification-from-the-provided-dataset">Winner Identification (From the Provided Dataset)</h3>
+<ol type="1">
+<li><strong>Group</strong> by Agency Name and sum two columns: <code>UPT_Per_Mode</code> and <code>MILES_Per_Mode</code>.</li>
+<li><strong>Calculate:</strong><br>
+<span class="math display">\[ \text{occupancy} = \frac{\text{UPT\_Per\_Mode}}{\text{MILES\_Per\_Mode}} \]</span></li>
+<li>The agency with the minimum occupancy is designated the “Worst Occupancy” recipient.</li>
+</ol>
+<ul>
+<li><strong>Winner:</strong> Alaska Railroad Corporation<br>
+</li>
+<li><strong>Performance:</strong> 0.008071188 passengers per mile</li>
+</ul>
+</section>
+<section id="comparison-to-median-2" class="level3">
+<h3 class="anchored" data-anchor-id="comparison-to-median-2">Comparison to Median</h3>
+<p>The median agency for this measure is Greenville Transit Authority, with 0.1906868 passengers per mile.<br>
+Such an extremely low occupancy indicates that Alaska Railroad Corporation may be operating highly underutilized routes—running trains with very few passengers over long distances.</p>
+<hr>
+</section>
+</section>
+<section id="additional-qa" class="level2">
+<h2 class="anchored" data-anchor-id="additional-qa">Additional Q&amp;A</h2>
+<p>Beyond the GTA IV Awards, we also evaluated state energy profiles (SEP data) and further NTD Service Data. Here are a few highlight questions:</p>
+<section id="task-2-initial-analysis-of-sep-data" class="level3">
+<h3 class="anchored" data-anchor-id="task-2-initial-analysis-of-sep-data">Task 2: Initial Analysis of SEP Data</h3>
+<ul>
+<li><p><strong>Which state has the most expensive retail electricity?</strong><br>
+<em>Answer:</em> Hawaii at $386.00 per 1000 kWh.</p></li>
+<li><p><strong>Which state has the ‘dirtiest’ electricity mix?</strong><br>
+<em>Answer:</em> West Virginia at 1,925 lb CO₂ per MWh.</p></li>
+<li><p><strong>Average CO₂ (lb) per MWh in the US (weighted)?</strong><br>
+<em>Answer:</em> 850.52 lb.</p></li>
+<li><p><strong>Rarest primary energy source and where?</strong><br>
+<em>Answer:</em> Petroleum in Hawaii, costing $386.00 per 1000 kWh.</p></li>
+<li><p><strong>How many times cleaner is NY’s energy mix than TX’s?</strong><br>
+<em>Answer:</em> About 1.64× cleaner.</p></li>
+</ul>
+</section>
+<section id="task-4-explore-ntd-service-data" class="level3">
+<h3 class="anchored" data-anchor-id="task-4-explore-ntd-service-data">Task 4: Explore NTD Service Data</h3>
+<ul>
+<li><p><strong>Which transit service has the most UPT annually?</strong><br>
+<em>Answer:</em> MTA New York City Transit (~2.63 billion UPT).</p></li>
+<li><p><strong>Average trip length on MTA NYC?</strong><br>
+<em>Answer:</em> 3.64 miles.</p></li>
+<li><p><strong>Longest average trip length in NYC area?</strong><br>
+<em>Answer:</em> Private Transportation Corporation.</p></li>
+<li><p><strong>State with the fewest total miles by public transit?</strong><br>
+<em>Answer:</em> New Hampshire (~3.75 million miles).</p></li>
+<li><p><strong>Are all states in the data? If not, which are missing?</strong><br>
+<em>Answer:</em> Missing states (19 total):<br>
+AZ, AR, CA, CO, HI, IA, KS, LA, MO, MT, NE, NV, NM, ND, OK, SD, TX, UT, WY.</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="concluding-remarks" class="level2">
+<h2 class="anchored" data-anchor-id="concluding-remarks">Concluding Remarks</h2>
+<p>These four awards illuminate both leading and lagging examples across U.S. transit:</p>
+<ul>
+<li><strong>City of Seattle</strong> excels in minimal carbon intensity per passenger trip.</li>
+<li><strong>MTA New York City Transit</strong> avoids an astounding 9+ billion pounds of CO₂.</li>
+<li><strong>Port Authority Trans-Hudson Corporation</strong> emerges as a fully electric leader with high total miles.</li>
+<li><strong>Alaska Railroad Corporation</strong> lags with a particularly low occupancy ratio, suggesting an immediate need for route optimization and strategies to boost ridership.</li>
+</ul>
+<p>We hope these findings spark conversations about enhancing sustainability, efficiency, and ridership throughout our transit systems.</p>
+<hr>
+</section>
+<section id="methodological-notes" class="level2">
+<h2 class="anchored" data-anchor-id="methodological-notes">Methodological Notes</h2>
+<section id="co₂-per-upt-award-1-greenest-transit-agency" class="level3">
+<h3 class="anchored" data-anchor-id="co₂-per-upt-award-1-greenest-transit-agency">CO₂ per UPT (Award #1, “Greenest Transit Agency”)</h3>
+<p><span class="math display">\[
+\text{CO₂ per UPT} = \frac{\text{Total Agency Pounds CO₂}}{\text{Total Agency Unlinked Passenger Trips}}
+\]</span></p>
+</section>
+<section id="emissions-avoided-award-2-most-emissions-avoided" class="level3">
+<h3 class="anchored" data-anchor-id="emissions-avoided-award-2-most-emissions-avoided">Emissions Avoided (Award #2, “Most Emissions Avoided”)</h3>
+<ul>
+<li>Each unlinked transit trip replaced a hypothetical 5-mile solo car trip.</li>
+<li>The car scenario uses 24 MPG and 19.6 lb CO₂/gallon.</li>
+</ul>
+<p><span class="math display">\[
+\text{Emissions Avoided} = \text{(Hypothetical Car CO₂)} - \text{(Actual Transit CO₂)}
+\]</span></p>
+</section>
+<section id="electric-share-award-3-electrification-champion" class="level3">
+<h3 class="anchored" data-anchor-id="electric-share-award-3-electrification-champion">Electric Share (Award #3, “Electrification Champion”)</h3>
+<p><span class="math display">\[
+\text{Electric Ratio} = \frac{\text{Electric Battery} + \text{Electric Propulsion}}{\text{Bio-Diesel} + \text{Diesel Fuel} + \dots + \text{Electric Battery} + \text{Electric Propulsion} + \dots}
+\]</span></p>
+<p>Agencies with an Electric Ratio of <strong>1.0</strong> (fully electric) are identified. Among that group, the one with the highest total vehicle miles traveled wins.</p>
+</section>
+<section id="occupancy-ratio-award-4-worst-occupancy" class="level3">
+<h3 class="anchored" data-anchor-id="occupancy-ratio-award-4-worst-occupancy">Occupancy Ratio (Award #4, “Worst Occupancy”)</h3>
+<p><span class="math display">\[
+\text{Occupancy} = \frac{\text{Sum of Unlinked Passenger Trips}}{\text{Sum of Vehicle Miles}}
+\]</span></p>
+</section>
+</section>
+<section id="code-apendix" class="level2">
+<h2 class="anchored" data-anchor-id="code-apendix">Code Apendix</h2>
+<p>```{r, echo=TRUE, eval=TRUE, collapse=TRUE} ensure_package &lt;- function(pkg){ pkg &lt;- as.character(substitute(pkg)) options(repos = c(CRAN = “https://cloud.r-project.org”)) if(!require(pkg, character.only=TRUE)) install.packages(pkg) stopifnot(require(pkg, character.only=TRUE)) }</p>
+<p>ensure_package(dplyr) ensure_package(stringr) ensure_package(tidyr) ensure_package(httr2) ensure_package(rvest) ensure_package(datasets) ensure_package(purrr) ensure_package(DT)</p>
+</section>
+</section>
+<section id="step-1-retrieve-eia-data-for-each-state-and-create-a-summary-table" class="level1">
+<h1>Step 1: Retrieve EIA data for each state and create a summary table</h1>
+<p>get_eia_sep &lt;- function(state, abbr){ state_formatted &lt;- str_to_lower(state) |&gt; str_replace_all(“\s”, ““)</p>
+<p>dir_name &lt;- file.path(“data”, “mp02”) file_name &lt;- file.path(dir_name, state_formatted)</p>
+<p>dir.create(dir_name, showWarnings=FALSE, recursive=TRUE)</p>
+<p>if(!file.exists(file_name)){ BASE_URL &lt;- “https://www.eia.gov” REQUEST &lt;- request(BASE_URL) |&gt; req_url_path(“electricity”, “state”, state_formatted)</p>
+<pre><code>RESPONSE &lt;- req_perform(REQUEST)
+
+resp_check_status(RESPONSE)
+
+writeLines(resp_body_string(RESPONSE), file_name)</code></pre>
+<p>}</p>
+<p>TABLE &lt;- read_html(file_name) |&gt; html_element(“table”) |&gt; html_table() |&gt; mutate(Item = str_to_lower(Item))</p>
+<p>if(“U.S. rank” %in% colnames(TABLE)){ TABLE &lt;- TABLE |&gt; rename(Rank = <code>U.S. rank</code>) }</p>
+<p>CO2_MWh &lt;- TABLE |&gt; filter(Item == “carbon dioxide (lbs/mwh)”) |&gt; pull(Value) |&gt; str_replace_all(“,”, ““) |&gt; as.numeric()</p>
+<p>PRIMARY &lt;- TABLE |&gt; filter(Item == “primary energy source”) |&gt; pull(Rank)</p>
+<p>RATE &lt;- TABLE |&gt; filter(Item == “average retail price (cents/kwh)”) |&gt; pull(Value) |&gt; as.numeric()</p>
+<p>GENERATION_MWh &lt;- TABLE |&gt; filter(Item == “net generation (megawatthours)”) |&gt; pull(Value) |&gt; str_replace_all(“,”, ““) |&gt; as.numeric()</p>
+<p>data.frame( CO2_MWh = CO2_MWh, primary_source = PRIMARY, electricity_price_MWh = RATE * 10, generation_MWh = GENERATION_MWh, state = state, abbreviation = abbr ) }</p>
+<p>EIA_SEP_REPORT &lt;- map2(state.name, state.abb, get_eia_sep) |&gt; list_rbind()</p>
+<p>ensure_package(scales) ensure_package(DT)</p>
+</section>
+<section id="step-2-display-a-table-with-formatted-columns" class="level1">
+<h1>Step 2: Display a table with formatted columns</h1>
+<p>EIA_SEP_REPORT |&gt; select(-abbreviation) |&gt; arrange(desc(CO2_MWh)) |&gt; mutate( CO2_MWh = number(CO2_MWh, big.mark=“,”), electricity_price_MWh = dollar(electricity_price_MWh), generation_MWh = number(generation_MWh, big.mark=“,”) ) |&gt; rename( <code>Pounds of CO2 Emitted per MWh of Electricity Produced</code> = CO2_MWh, <code>Primary Source of Electricity Generation</code> = primary_source, <code>Average Retail Price for 1000 kWh</code> = electricity_price_MWh, <code>Total Generation Capacity (MWh)</code> = generation_MWh, State = state ) |&gt; datatable()</p>
+</section>
+<section id="step-3-calculate-the-average-co2-emissions-per-mwh-from-the-original-numeric-column" class="level1">
+<h1>Step 3: Calculate the average CO2 emissions per MWh from the original numeric column</h1>
+<p>avg_CO2 &lt;- EIA_SEP_REPORT |&gt; summarise(<code>Average Pounds of CO2 per MWh</code> = mean(CO2_MWh, na.rm = TRUE))</p>
+<p>print(avg_CO2)</p>
+</section>
+<section id="step-4-prepare-and-process-ntd-energy-data" class="level1">
+<h1>Step 4: Prepare and process NTD Energy data</h1>
+<p>ensure_package(readxl)</p>
+<p>DATA_DIR &lt;- file.path(“data”, “mp02”) dir.create(DATA_DIR, showWarnings=FALSE, recursive=TRUE)</p>
+<p>NTD_ENERGY_FILE &lt;- file.path(DATA_DIR, “2023_ntd_energy.xlsx”)</p>
+<p>if(!file.exists(NTD_ENERGY_FILE)){ DS &lt;- download.file( “https://www.transit.dot.gov/sites/fta.dot.gov/files/2024-10/2023%20Energy%20Consumption.xlsx”, destfile=NTD_ENERGY_FILE, method=“curl” )</p>
+<p>if(DS | (file.info(NTD_ENERGY_FILE)$size == 0)){ cat(“I was unable to download the NTD Energy File. Please try again.”) stop(“Download failed”) } }</p>
+<p>NTD_ENERGY_RAW &lt;- read_xlsx(NTD_ENERGY_FILE)</p>
+<p>to_numeric_fill_0 &lt;- function(x){ x &lt;- if_else(x == “-”, NA, x) replace_na(as.numeric(x), 0) }</p>
+<p>NTD_ENERGY &lt;- NTD_ENERGY_RAW |&gt; select( -c( <code>Reporter Type</code>, <code>Reporting Module</code>, <code>Other Fuel</code>, <code>Other Fuel Description</code> ) ) |&gt; mutate(across(-c(<code>Agency Name</code>, <code>Mode</code>, <code>TOS</code>), to_numeric_fill_0)) |&gt; group_by(<code>NTD ID</code>, <code>Mode</code>, <code>Agency Name</code>) |&gt; summarize(across(where(is.numeric), sum), .groups = “keep”) |&gt; mutate(ENERGY = sum(c_across(c(where(is.numeric))))) |&gt; filter(ENERGY &gt; 0) |&gt; select(-ENERGY) |&gt; ungroup()</p>
+<p>slice_sample(NTD_ENERGY , n=10)</p>
+</section>
+<section id="step-5-replace-mode-abbreviations-with-descriptive-names" class="level1">
+<h1>Step 5: Replace mode abbreviations with descriptive names</h1>
+<p>NTD_ENERGY &lt;- NTD_ENERGY |&gt; mutate(Mode = case_when( Mode == “HR” ~ “Heavy Rail”, Mode == “AR” ~ “Automated Rail”, Mode == “CB” ~ “Conventional Bus”, Mode == “CC” ~ “Commuter Coach”, Mode == “CR” ~ “Commuter Rail”, Mode == “DR” ~ “Demand Response”, Mode == “FB” ~ “Ferry Boat”, Mode == “IP” ~ “Intercity Passenger”, Mode == “LR” ~ “Light Rail”, Mode == “MB” ~ “Motor Bus”, Mode == “MG” ~ “Monorail”, Mode == “PB” ~ “Paratransit Bus”, Mode == “RB” ~ “Rail Bus”, Mode == “SR” ~ “Streetcar”, Mode == “TB” ~ “Trolley Bus”, Mode == “TR” ~ “Transit Rail”, Mode == “VP” ~ “Vanpool”, Mode == “YR” ~ “Yard Rail”, TRUE ~ “Unknown” ))</p>
+</section>
+<section id="step-6-prepare-and-process-ntd-service-data" class="level1">
+<h1>Step 6: Prepare and process NTD Service data</h1>
+<p>library(readr) NTD_SERVICE_FILE &lt;- file.path(DATA_DIR, “2023_service.csv”)</p>
+<p>if(!file.exists(NTD_SERVICE_FILE)){ DS &lt;- download.file( “https://data.transportation.gov/resource/6y83-7vuw.csv”, destfile=NTD_SERVICE_FILE, method=“curl” )</p>
+<p>if(DS | (file.info(NTD_SERVICE_FILE)$size == 0)){ cat(“I was unable to download the NTD Service File. Please try again.”) stop(“Download failed”) } }</p>
+<p>NTD_SERVICE_RAW &lt;- read_csv(NTD_SERVICE_FILE)</p>
+<p>NTD_SERVICE &lt;- NTD_SERVICE_RAW |&gt; mutate(<code>NTD ID</code> = as.numeric(<code>_5_digit_ntd_id</code>)) |&gt; rename( Agency = agency, City = max_city, State = max_state, UPT = sum_unlinked_passenger_trips_upt, MILES = sum_passenger_miles ) |&gt; select(matches(“<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>”, ignore.case=FALSE)) |&gt; filter(MILES &gt; 0)</p>
+<p>slice_sample(NTD_SERVICE , n=10)</p>
+</section>
+<section id="step-7-simple-queries-on-ntd_service" class="level1">
+<h1>Step 7: Simple queries on NTD_SERVICE</h1>
+<p>library(dplyr)</p>
+</section>
+<section id="query-1-average-trip-length-for-mta-nyc" class="level1">
+<h1>Query 1: Average trip length for MTA NYC</h1>
+<p>mta_nyc_avg_trip_length &lt;- NTD_SERVICE %&gt;% filter(Agency == “MTA New York City Transit”) %&gt;% summarize( total_miles = sum(MILES), total_upt = sum(UPT), avg_trip_length = total_miles / total_upt )</p>
+<p>mta_nyc_avg_trip_length</p>
+</section>
+<section id="query-2-which-transit-service-in-nyc-or-brooklyn-has-the-longest-average-trip-length" class="level1">
+<h1>Query 2: Which transit service in NYC or Brooklyn has the longest average trip length?</h1>
+<p>nyc_services_longest_trip &lt;- NTD_SERVICE %&gt;% filter(City %in% c(“New York City”, “Brooklyn”)) %&gt;% group_by(Agency) %&gt;% summarize( total_miles = sum(MILES), total_upt = sum(UPT), avg_trip_length = total_miles / total_upt ) %&gt;% arrange(desc(avg_trip_length)) %&gt;% slice(2)</p>
+<p>nyc_services_longest_trip</p>
+</section>
+<section id="query-3-state-with-the-fewest-total-miles-traveled" class="level1">
+<h1>Query 3: State with the fewest total miles traveled</h1>
+<p>fewest_miles_by_state &lt;- NTD_SERVICE %&gt;% group_by(State) %&gt;% summarize(total_miles = sum(MILES)) %&gt;% arrange(total_miles) %&gt;% slice(1)</p>
+<p>fewest_miles_by_state</p>
+</section>
+<section id="query-4-check-if-all-states-are-represented-in-the-data" class="level1">
+<h1>Query 4: Check if all states are represented in the data</h1>
+<p>all_states &lt;- data.frame( full_name = state.name, abbr = state.abb, stringsAsFactors = FALSE )</p>
+<p>unique_states_in_data &lt;- unique(NTD_SERVICE$State)</p>
+<p>missing_states &lt;- all_states %&gt;% filter(!abbr %in% unique_states_in_data)</p>
+<p>missing_states</p>
+</section>
+<section id="step-8-merge-ntd-energy-data-with-ntd-service-data-then-merge-with-eia-data" class="level1">
+<h1>Step 8: Merge NTD Energy data with NTD Service data, then merge with EIA data</h1>
+<p>NTD_ENERGY_WITH_STATE &lt;- merge( NTD_ENERGY, NTD_SERVICE[ , c(“NTD ID”, “State”)], by = “NTD ID”, all.x = TRUE )</p>
+<p>MERGED_TABLE &lt;- merge( NTD_ENERGY_WITH_STATE, EIA_SEP_REPORT[ , c(“abbreviation”, “CO2_MWh”)], by.x = “State”, by.y = “abbreviation”, all.x = TRUE )</p>
+<p>slice_sample(MERGED_TABLE , n=10)</p>
+</section>
+<section id="step-9-calculate-pounds_co2-from-various-fuel-sources-and-electricity" class="level1">
+<h1>Step 9: Calculate Pounds_CO2 from various fuel sources and electricity</h1>
+<p>emission_factors &lt;- c( “Bio-Diesel” = 22.51, “Bunker Fuel” = 24.781597, “C Natural Gas” = 15.31, “Diesel Fuel” = 22.454989, “Ethanol” = 12.57, “Methonal” = 8.44, “Gasoline” = 20.862476, “Hydrogen” = 0, “Kerosene” = 21.782087, “Liquified Nat Gas” = 4.46, “Liquified Petroleum Gas”= 12.678396 )</p>
+<p>MERGED_TABLE$Pounds_CO2 &lt;- 0</p>
+<p>for(fuel_col in names(emission_factors)) { MERGED_TABLE<span class="math inline">\(Pounds_CO2 &lt;- MERGED_TABLE\)</span>Pounds_CO2 + (MERGED_TABLE[[fuel_col]] * emission_factors[[fuel_col]]) }</p>
+<p>electric_total_MWh &lt;- (MERGED_TABLE[[“Electric Battery”]] + MERGED_TABLE[[“Electric Propulsion”]]) / 1000</p>
+<p>average_CO2_MWh &lt;- mean(MERGED_TABLE$CO2_MWh, na.rm = TRUE) co2_mwh_filled &lt;- ifelse(is.na(MERGED_TABLE[[“CO2_MWh”]]), average_CO2_MWh, MERGED_TABLE[[“CO2_MWh”]])</p>
+<p>MERGED_TABLE<span class="math inline">\(Pounds_CO2 &lt;- MERGED_TABLE\)</span>Pounds_CO2 + (electric_total_MWh * co2_mwh_filled)</p>
+</section>
+<section id="step-10-allocate-passenger-miles-and-trips-proportionally-by-pounds_co2" class="level1">
+<h1>Step 10: Allocate passenger miles and trips proportionally by Pounds_CO2</h1>
+<p>total_co2 &lt;- MERGED_TABLE %&gt;% group_by(<code>NTD ID</code>) %&gt;% summarise(total_Pounds_CO2_Per_Agency = sum(Pounds_CO2, na.rm = TRUE))</p>
+<p>MERGED_TABLE &lt;- MERGED_TABLE %&gt;% left_join(total_co2, by = “NTD ID”) %&gt;% left_join(NTD_SERVICE %&gt;% select(<code>NTD ID</code>, UPT, MILES), by = “NTD ID”) %&gt;% mutate( UPT_Per_Mode = ifelse(total_Pounds_CO2_Per_Agency == 0, 0, Pounds_CO2 / total_Pounds_CO2_Per_Agency * UPT), MILES_Per_Mode = ifelse(total_Pounds_CO2_Per_Agency == 0, 0, Pounds_CO2 / total_Pounds_CO2_Per_Agency * MILES), Pounds_CO2_Per_UPT = ifelse(UPT_Per_Mode == 0, NA, Pounds_CO2 / UPT_Per_Mode), Pounds_CO2_Per_MILES = ifelse(MILES_Per_Mode == 0, NA, Pounds_CO2 / MILES_Per_Mode) )</p>
+</section>
+<section id="step-11-summaries-and-awards-calculation" class="level1">
+<h1>Step 11: Summaries and Awards Calculation</h1>
+<p>library(dplyr) library(readr) library(tidyr)</p>
+<p>df_clean &lt;- MERGED_TABLE %&gt;% mutate(across(where(is.numeric), ~replace_na(., 0)))</p>
+<p>fuel_cols &lt;- c( “Bio-Diesel”, “Bunker Fuel”, “Diesel Fuel”, “Gasoline”, “C Natural Gas”, “Liquified Petroleum Gas”, “Electric Battery”, “Electric Propulsion” )</p>
+<p>grouped &lt;- df_clean %&gt;% group_by(<code>Agency Name</code>) %&gt;% summarise( Total_Pounds_CO2 = sum(Pounds_CO2, na.rm = TRUE), Total_UPT = sum(UPT, na.rm = TRUE), Total_MILES = sum(MILES, na.rm = TRUE), Electric_Battery = sum(<code>Electric Battery</code>, na.rm = TRUE), Electric_Propulsion = sum(<code>Electric Propulsion</code>, na.rm = TRUE), Total_Fuel_Usage = sum(across(all_of(fuel_cols)), na.rm = TRUE) ) %&gt;% ungroup() %&gt;% mutate( CO2_per_UPT = if_else(Total_UPT &gt; 0, Total_Pounds_CO2 / Total_UPT, NA_real_), Passenger_Miles_if_car = Total_UPT * 5, Car_Gallons = Passenger_Miles_if_car / 24, Car_CO2 = Car_Gallons * 19.6, Emissions_Avoided = Car_CO2 - Total_Pounds_CO2, Electric_Usage = Electric_Battery + Electric_Propulsion, Electric_Ratio = if_else(Total_Fuel_Usage &gt; 0, Electric_Usage / Total_Fuel_Usage, NA_real_), Occupancy_Ratio = if_else(Total_MILES &gt; 0, Total_UPT / Total_MILES, NA_real_) )</p>
+</section>
+<section id="identify-award-winners" class="level1">
+<h1>Identify Award Winners</h1>
+<p>award1_winner &lt;- grouped %&gt;% filter(!is.na(CO2_per_UPT)) %&gt;% slice_min(CO2_per_UPT, n = 1)</p>
+<p>award2_winner &lt;- grouped %&gt;% filter(!is.na(Emissions_Avoided)) %&gt;% slice_max(Emissions_Avoided, n = 1)</p>
+<p>award4_winner &lt;- grouped %&gt;% filter(!is.na(Occupancy_Ratio)) %&gt;% slice_min(Occupancy_Ratio, n = 1)</p>
+</section>
+<section id="fully-electric-subset-for-award-3" class="level1">
+<h1>Fully-electric subset for Award #3</h1>
+<p>electrified_only &lt;- grouped %&gt;% filter(!is.na(Electric_Ratio), Electric_Ratio == 1)</p>
+<p>if (nrow(electrified_only) == 0) { award3_winner &lt;- NULL reference3 &lt;- NULL median_miles_electrified &lt;- NA_real_ } else { award3_winner &lt;- electrified_only %&gt;% slice_max(Total_MILES, n = 1)</p>
+<p>median_miles_electrified &lt;- median(electrified_only$Total_MILES, na.rm = TRUE)</p>
+<p>find_closest_to_median_miles &lt;- function(data, col) { val &lt;- median(data[[col]], na.rm = TRUE) data %&gt;% mutate(abs_diff = abs(.data[[col]] - val)) %&gt;% slice_min(abs_diff, n = 1) %&gt;% select(-abs_diff) } reference3 &lt;- find_closest_to_median_miles(electrified_only, “Total_MILES”) }</p>
+</section>
+<section id="find-references-for-awards-1-2-4" class="level1">
+<h1>Find references for Awards #1, #2, #4</h1>
+<p>find_closest_to_median &lt;- function(data, metric_col) { med_val &lt;- median(data[[metric_col]], na.rm = TRUE) data %&gt;% mutate(abs_diff = abs(.data[[metric_col]] - med_val)) %&gt;% slice_min(abs_diff, n = 1) %&gt;% select(-abs_diff) }</p>
+<p>median_co2_per_upt &lt;- median(grouped$CO2_per_UPT, na.rm = TRUE) reference1 &lt;- grouped %&gt;% filter(!is.na(CO2_per_UPT)) %&gt;% find_closest_to_median(“CO2_per_UPT”)</p>
+<p>median_emissions_avoided &lt;- median(grouped$Emissions_Avoided, na.rm = TRUE) reference2 &lt;- grouped %&gt;% filter(!is.na(Emissions_Avoided)) %&gt;% find_closest_to_median(“Emissions_Avoided”)</p>
+<p>median_occupancy_ratio &lt;- median(grouped$Occupancy_Ratio, na.rm = TRUE) reference4 &lt;- grouped %&gt;% filter(!is.na(Occupancy_Ratio)) %&gt;% find_closest_to_median(“Occupancy_Ratio”)</p>
+</section>
+<section id="step-12-print-results" class="level1">
+<h1>Step 12: Print results</h1>
+<p>cat(“===== GTA IV Awards =====”) cat(“—- Award #1: Greenest Transit Agency (lowest CO2_per_UPT) —-”) cat(“Winner:”) print(award1_winner) cat(“CO2_per_UPT =”, median_co2_per_upt, “”) cat(“Reference agency (closest to median CO2_per_UPT):”) print(reference1)</p>
+<p>cat(“—- Award #2: Most Emissions Avoided —-”) cat(“Winner:”) print(award2_winner) cat(“Emissions_Avoided =”, median_emissions_avoided, “”) cat(“Reference agency (closest to median Emissions_Avoided):”) print(reference2)</p>
+<p>cat(“—- Award #3: Highest Total_MILES Among Fully Electric Agencies —-”) cat(“Fully electric winner:”) print(award3_winner) cat(“Median total miles (fully electric) =”, median_miles_electrified, “”)</p>
+<p>cat(“—- Award #4: Lowest Occupancy Ratio —-”) cat(“Winner:”) print(award4_winner) cat(“Occupancy Ratio =”, median_occupancy_ratio, “”) cat(“Reference agency (closest to median Occupancy Ratio):”) print(reference4) ```</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>A-Z<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/mcg219\.github\.io\/STA9750-2025-SPRING\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -5,5 +5,82 @@
     "title": "YOUR TITLE GOES HERE",
     "section": "",
     "text": "Basic text\n\nLast Updated: Wednesday 02 12, 2025 at 22:02PM"
+  },
+  {
+    "objectID": "mp02.html",
+    "href": "mp02.html",
+    "title": "Mini Project 2",
+    "section": "",
+    "text": "For Immediate Release\nDate: March 26, 2025\n\n\n\nThe GTA IV (Green Transit Awards) highlight transit agencies that excel in reducing greenhouse gas (GHG) emissions and operating sustainably. In this edition, we present four awards, each grounded in specific data-driven metrics:\n\nGreenest Transit Agency – Lowest lbs CO₂ per UPT\n\nMost Emissions Avoided – Difference between hypothetical “all-cars” scenario and actual emissions\n\nElectrification Champion – Among agencies with a 100% electric ratio, the one with the highest total vehicle miles traveled\n\nWorst Occupancy – Lowest ratio of unlinked passenger trips to vehicle miles traveled\n\n\nNote: This press release also includes a brief Q&A section summarizing key insights from separate analyses of state-level energy data and additional NTD (National Transit Database) service information.\n\n\n\n\n\n\n\n\\[\n\\text{CO₂ per UPT} = \\frac{\\text{Total Agency Pounds CO₂}}{\\text{Total Agency Unlinked Passenger Trips}}\n\\]\n\nWinner: City of Seattle\n\nPerformance: 0.069 lb CO₂ per unlinked passenger trip\n\n\n\n\nThe median agency for this metric is Ms Coast Transportation Authority, at 7.16 lb per trip.\nSeattle emits barely 1% as much CO₂ per passenger trip as the median—a remarkable feat of efficiency.\n\n\n\n\n\n\n\n\nAssume each transit trip replaced a 5-mile solo car trip.\nUse 24 MPG and 19.6 lb CO₂/gallon to estimate hypothetical “all-cars” emissions.\nSubtract actual transit emissions from the hypothetical scenario.\nWinner: MTA New York City Transit\n\nPerformance: ~9.12 billion pounds of CO₂ avoided\n\n\n\n\nThe median agency for this measure is Baldwin County Commission, with -2.22 million pounds avoided (i.e., it emits more than if passengers had driven alone).\nMTA’s massive positive gap testifies to how high-ridership transit can drastically slash emissions.\n\n\n\n\n\n\n\nWe first identify agencies that operate fully electric—that is, those with an electric ratio of 1.0. Formally:\n\\[\n\\text{Electric Ratio} = \\frac{\\text{Electric Battery} + \\text{Electric Propulsion}}{\\sum (\\text{All Fuel/Energy Types})}\n\\]\nAgencies with an Electric Ratio of 1.0 are considered “fully electric.”\nAmong these fully electric agencies, the Electrification Champion is the one with the highest total vehicle miles traveled.\n\n\n\n\nFilter the dataset to include only agencies that report an Electric Ratio of 1.0.\nSum total miles (e.g., using the MILES_Per_Mode column) for each agency in that filtered group.\nThe agency with the greatest total miles wins the award.\n\n\nWinner: Port Authority Trans-Hudson Corporation\n\nPerformance: 268,404,831 total miles (fully electric)\n\n\n\n\nThe overall median electric share among all agencies is effectively 0% (most agencies do not report any electric usage).\nAchieving a 100% electric ratio—and doing so across a high volume of total miles—underscores PATH’s commitment to zero-emission transit at scale.\n\n\n\n\n\n\n\n\\[\n\\text{Occupancy Ratio} = \\frac{\\text{Unlinked Passenger Trips (UPT)}}{\\text{Vehicle Miles Traveled}}\n\\]\nWe define “worst” as the agency with the lowest occupancy ratio, meaning they operate many miles but serve very few passengers per mile.\n\n\n\n\nGroup by Agency Name and sum two columns: UPT_Per_Mode and MILES_Per_Mode.\nCalculate:\n\\[ \\text{occupancy} = \\frac{\\text{UPT\\_Per\\_Mode}}{\\text{MILES\\_Per\\_Mode}} \\]\nThe agency with the minimum occupancy is designated the “Worst Occupancy” recipient.\n\n\nWinner: Alaska Railroad Corporation\n\nPerformance: 0.008071188 passengers per mile\n\n\n\n\nThe median agency for this measure is Greenville Transit Authority, with 0.1906868 passengers per mile.\nSuch an extremely low occupancy indicates that Alaska Railroad Corporation may be operating highly underutilized routes—running trains with very few passengers over long distances.\n\n\n\n\n\nBeyond the GTA IV Awards, we also evaluated state energy profiles (SEP data) and further NTD Service Data. Here are a few highlight questions:\n\n\n\nWhich state has the most expensive retail electricity?\nAnswer: Hawaii at $386.00 per 1000 kWh.\nWhich state has the ‘dirtiest’ electricity mix?\nAnswer: West Virginia at 1,925 lb CO₂ per MWh.\nAverage CO₂ (lb) per MWh in the US (weighted)?\nAnswer: 850.52 lb.\nRarest primary energy source and where?\nAnswer: Petroleum in Hawaii, costing $386.00 per 1000 kWh.\nHow many times cleaner is NY’s energy mix than TX’s?\nAnswer: About 1.64× cleaner.\n\n\n\n\n\nWhich transit service has the most UPT annually?\nAnswer: MTA New York City Transit (~2.63 billion UPT).\nAverage trip length on MTA NYC?\nAnswer: 3.64 miles.\nLongest average trip length in NYC area?\nAnswer: Private Transportation Corporation.\nState with the fewest total miles by public transit?\nAnswer: New Hampshire (~3.75 million miles).\nAre all states in the data? If not, which are missing?\nAnswer: Missing states (19 total):\nAZ, AR, CA, CO, HI, IA, KS, LA, MO, MT, NE, NV, NM, ND, OK, SD, TX, UT, WY.\n\n\n\n\n\n\nThese four awards illuminate both leading and lagging examples across U.S. transit:\n\nCity of Seattle excels in minimal carbon intensity per passenger trip.\nMTA New York City Transit avoids an astounding 9+ billion pounds of CO₂.\nPort Authority Trans-Hudson Corporation emerges as a fully electric leader with high total miles.\nAlaska Railroad Corporation lags with a particularly low occupancy ratio, suggesting an immediate need for route optimization and strategies to boost ridership.\n\nWe hope these findings spark conversations about enhancing sustainability, efficiency, and ridership throughout our transit systems.\n\n\n\n\n\n\n\\[\n\\text{CO₂ per UPT} = \\frac{\\text{Total Agency Pounds CO₂}}{\\text{Total Agency Unlinked Passenger Trips}}\n\\]\n\n\n\n\nEach unlinked transit trip replaced a hypothetical 5-mile solo car trip.\nThe car scenario uses 24 MPG and 19.6 lb CO₂/gallon.\n\n\\[\n\\text{Emissions Avoided} = \\text{(Hypothetical Car CO₂)} - \\text{(Actual Transit CO₂)}\n\\]\n\n\n\n\\[\n\\text{Electric Ratio} = \\frac{\\text{Electric Battery} + \\text{Electric Propulsion}}{\\text{Bio-Diesel} + \\text{Diesel Fuel} + \\dots + \\text{Electric Battery} + \\text{Electric Propulsion} + \\dots}\n\\]\nAgencies with an Electric Ratio of 1.0 (fully electric) are identified. Among that group, the one with the highest total vehicle miles traveled wins.\n\n\n\n\\[\n\\text{Occupancy} = \\frac{\\text{Sum of Unlinked Passenger Trips}}{\\text{Sum of Vehicle Miles}}\n\\]\n\n\n\n\n```{r, echo=TRUE, eval=TRUE, collapse=TRUE} ensure_package &lt;- function(pkg){ pkg &lt;- as.character(substitute(pkg)) options(repos = c(CRAN = “https://cloud.r-project.org”)) if(!require(pkg, character.only=TRUE)) install.packages(pkg) stopifnot(require(pkg, character.only=TRUE)) }\nensure_package(dplyr) ensure_package(stringr) ensure_package(tidyr) ensure_package(httr2) ensure_package(rvest) ensure_package(datasets) ensure_package(purrr) ensure_package(DT)"
+  },
+  {
+    "objectID": "mp02.html#introduction",
+    "href": "mp02.html#introduction",
+    "title": "Mini Project 2",
+    "section": "",
+    "text": "The GTA IV (Green Transit Awards) highlight transit agencies that excel in reducing greenhouse gas (GHG) emissions and operating sustainably. In this edition, we present four awards, each grounded in specific data-driven metrics:\n\nGreenest Transit Agency – Lowest lbs CO₂ per UPT\n\nMost Emissions Avoided – Difference between hypothetical “all-cars” scenario and actual emissions\n\nElectrification Champion – Among agencies with a 100% electric ratio, the one with the highest total vehicle miles traveled\n\nWorst Occupancy – Lowest ratio of unlinked passenger trips to vehicle miles traveled\n\n\nNote: This press release also includes a brief Q&A section summarizing key insights from separate analyses of state-level energy data and additional NTD (National Transit Database) service information."
+  },
+  {
+    "objectID": "mp02.html#greenest-transit-agency",
+    "href": "mp02.html#greenest-transit-agency",
+    "title": "Mini Project 2",
+    "section": "",
+    "text": "\\[\n\\text{CO₂ per UPT} = \\frac{\\text{Total Agency Pounds CO₂}}{\\text{Total Agency Unlinked Passenger Trips}}\n\\]\n\nWinner: City of Seattle\n\nPerformance: 0.069 lb CO₂ per unlinked passenger trip\n\n\n\n\nThe median agency for this metric is Ms Coast Transportation Authority, at 7.16 lb per trip.\nSeattle emits barely 1% as much CO₂ per passenger trip as the median—a remarkable feat of efficiency."
+  },
+  {
+    "objectID": "mp02.html#most-emissions-avoided",
+    "href": "mp02.html#most-emissions-avoided",
+    "title": "Mini Project 2",
+    "section": "",
+    "text": "Assume each transit trip replaced a 5-mile solo car trip.\nUse 24 MPG and 19.6 lb CO₂/gallon to estimate hypothetical “all-cars” emissions.\nSubtract actual transit emissions from the hypothetical scenario.\nWinner: MTA New York City Transit\n\nPerformance: ~9.12 billion pounds of CO₂ avoided\n\n\n\n\nThe median agency for this measure is Baldwin County Commission, with -2.22 million pounds avoided (i.e., it emits more than if passengers had driven alone).\nMTA’s massive positive gap testifies to how high-ridership transit can drastically slash emissions."
+  },
+  {
+    "objectID": "mp02.html#electrification-champion",
+    "href": "mp02.html#electrification-champion",
+    "title": "Mini Project 2",
+    "section": "",
+    "text": "We first identify agencies that operate fully electric—that is, those with an electric ratio of 1.0. Formally:\n\\[\n\\text{Electric Ratio} = \\frac{\\text{Electric Battery} + \\text{Electric Propulsion}}{\\sum (\\text{All Fuel/Energy Types})}\n\\]\nAgencies with an Electric Ratio of 1.0 are considered “fully electric.”\nAmong these fully electric agencies, the Electrification Champion is the one with the highest total vehicle miles traveled.\n\n\n\n\nFilter the dataset to include only agencies that report an Electric Ratio of 1.0.\nSum total miles (e.g., using the MILES_Per_Mode column) for each agency in that filtered group.\nThe agency with the greatest total miles wins the award.\n\n\nWinner: Port Authority Trans-Hudson Corporation\n\nPerformance: 268,404,831 total miles (fully electric)\n\n\n\n\nThe overall median electric share among all agencies is effectively 0% (most agencies do not report any electric usage).\nAchieving a 100% electric ratio—and doing so across a high volume of total miles—underscores PATH’s commitment to zero-emission transit at scale."
+  },
+  {
+    "objectID": "mp02.html#worst-occupancy",
+    "href": "mp02.html#worst-occupancy",
+    "title": "Mini Project 2",
+    "section": "",
+    "text": "\\[\n\\text{Occupancy Ratio} = \\frac{\\text{Unlinked Passenger Trips (UPT)}}{\\text{Vehicle Miles Traveled}}\n\\]\nWe define “worst” as the agency with the lowest occupancy ratio, meaning they operate many miles but serve very few passengers per mile.\n\n\n\n\nGroup by Agency Name and sum two columns: UPT_Per_Mode and MILES_Per_Mode.\nCalculate:\n\\[ \\text{occupancy} = \\frac{\\text{UPT\\_Per\\_Mode}}{\\text{MILES\\_Per\\_Mode}} \\]\nThe agency with the minimum occupancy is designated the “Worst Occupancy” recipient.\n\n\nWinner: Alaska Railroad Corporation\n\nPerformance: 0.008071188 passengers per mile\n\n\n\n\nThe median agency for this measure is Greenville Transit Authority, with 0.1906868 passengers per mile.\nSuch an extremely low occupancy indicates that Alaska Railroad Corporation may be operating highly underutilized routes—running trains with very few passengers over long distances."
+  },
+  {
+    "objectID": "mp02.html#additional-qa",
+    "href": "mp02.html#additional-qa",
+    "title": "Mini Project 2",
+    "section": "",
+    "text": "Beyond the GTA IV Awards, we also evaluated state energy profiles (SEP data) and further NTD Service Data. Here are a few highlight questions:\n\n\n\nWhich state has the most expensive retail electricity?\nAnswer: Hawaii at $386.00 per 1000 kWh.\nWhich state has the ‘dirtiest’ electricity mix?\nAnswer: West Virginia at 1,925 lb CO₂ per MWh.\nAverage CO₂ (lb) per MWh in the US (weighted)?\nAnswer: 850.52 lb.\nRarest primary energy source and where?\nAnswer: Petroleum in Hawaii, costing $386.00 per 1000 kWh.\nHow many times cleaner is NY’s energy mix than TX’s?\nAnswer: About 1.64× cleaner.\n\n\n\n\n\nWhich transit service has the most UPT annually?\nAnswer: MTA New York City Transit (~2.63 billion UPT).\nAverage trip length on MTA NYC?\nAnswer: 3.64 miles.\nLongest average trip length in NYC area?\nAnswer: Private Transportation Corporation.\nState with the fewest total miles by public transit?\nAnswer: New Hampshire (~3.75 million miles).\nAre all states in the data? If not, which are missing?\nAnswer: Missing states (19 total):\nAZ, AR, CA, CO, HI, IA, KS, LA, MO, MT, NE, NV, NM, ND, OK, SD, TX, UT, WY."
+  },
+  {
+    "objectID": "mp02.html#concluding-remarks",
+    "href": "mp02.html#concluding-remarks",
+    "title": "Mini Project 2",
+    "section": "",
+    "text": "These four awards illuminate both leading and lagging examples across U.S. transit:\n\nCity of Seattle excels in minimal carbon intensity per passenger trip.\nMTA New York City Transit avoids an astounding 9+ billion pounds of CO₂.\nPort Authority Trans-Hudson Corporation emerges as a fully electric leader with high total miles.\nAlaska Railroad Corporation lags with a particularly low occupancy ratio, suggesting an immediate need for route optimization and strategies to boost ridership.\n\nWe hope these findings spark conversations about enhancing sustainability, efficiency, and ridership throughout our transit systems."
+  },
+  {
+    "objectID": "mp02.html#methodological-notes",
+    "href": "mp02.html#methodological-notes",
+    "title": "Mini Project 2",
+    "section": "",
+    "text": "\\[\n\\text{CO₂ per UPT} = \\frac{\\text{Total Agency Pounds CO₂}}{\\text{Total Agency Unlinked Passenger Trips}}\n\\]\n\n\n\n\nEach unlinked transit trip replaced a hypothetical 5-mile solo car trip.\nThe car scenario uses 24 MPG and 19.6 lb CO₂/gallon.\n\n\\[\n\\text{Emissions Avoided} = \\text{(Hypothetical Car CO₂)} - \\text{(Actual Transit CO₂)}\n\\]\n\n\n\n\\[\n\\text{Electric Ratio} = \\frac{\\text{Electric Battery} + \\text{Electric Propulsion}}{\\text{Bio-Diesel} + \\text{Diesel Fuel} + \\dots + \\text{Electric Battery} + \\text{Electric Propulsion} + \\dots}\n\\]\nAgencies with an Electric Ratio of 1.0 (fully electric) are identified. Among that group, the one with the highest total vehicle miles traveled wins.\n\n\n\n\\[\n\\text{Occupancy} = \\frac{\\text{Sum of Unlinked Passenger Trips}}{\\text{Sum of Vehicle Miles}}\n\\]"
+  },
+  {
+    "objectID": "mp02.html#code-apendix",
+    "href": "mp02.html#code-apendix",
+    "title": "Mini Project 2",
+    "section": "",
+    "text": "```{r, echo=TRUE, eval=TRUE, collapse=TRUE} ensure_package &lt;- function(pkg){ pkg &lt;- as.character(substitute(pkg)) options(repos = c(CRAN = “https://cloud.r-project.org”)) if(!require(pkg, character.only=TRUE)) install.packages(pkg) stopifnot(require(pkg, character.only=TRUE)) }\nensure_package(dplyr) ensure_package(stringr) ensure_package(tidyr) ensure_package(httr2) ensure_package(rvest) ensure_package(datasets) ensure_package(purrr) ensure_package(DT)"
+  },
+  {
+    "objectID": "mp02.html#footnotes",
+    "href": "mp02.html#footnotes",
+    "title": "Mini Project 2",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nA-Z↩︎"
   }
 ]
