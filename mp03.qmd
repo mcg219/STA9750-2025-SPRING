@@ -1,0 +1,904 @@
+---
+title: "Golden Era Duo"
+author: "mcg219"
+format:
+  html: 
+    code-fold: true
+    code-summary: "Show the code"
+    toc: true
+    theme: darkly
+    css: styles.css
+execute:
+  echo: true  
+  warning: false
+  message: false
+---
+
+# The Golden Era Duo
+
+## Concept & Theme
+
+This project attempts to pay homage to the "Golden Era" of electronic trap music, particularly celebrating its fusion with rap music. During this period, these genres developed a unique relationship that created a distinctive sound landscape influencing both electronic and hip-hop communities.
+
+While fans may argue where exactly the bounds of the actual "Golden Era" was, in this project, we will look at songs from 2012 to 2015.
+
+The name "Golden Era Duo" reflects the complementary nature of these two genres during this pivotal time, in which the inclusion of rap was more prevalent in Electronic Trap Sets. My playlist deliberately contrasts and connects these musical worlds through data-driven track selection.
+
+## Anchor Tracks
+
+Two anchor tracks represent different sides of this musical partnership:
+
+1.  **"Core" by RL Grime** - Representing electronic trap
+2.  **"Broke Boi" by Playboi Carti** - Representing rap
+
+```{=html}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/04ufimjXEbA" 
+        title="YouTube video player" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+</iframe>
+```
+These tracks have no significant cultural co-significance but were chosen specifically to represent the stark contrast between the genres while highlighting their compatibility.
+
+## Methodology & Approach
+
+My approach uses the required four data-driven heuristics to select an initial pool of 160 tracks (40 from each heuristic):
+
+1.  **Co-occurrence** - Tracks that appear alongside anchors in user playlists
+2.  **Key & tempo compatibility** - For seamless transitions
+3.  **Same artist connections** - Other works by the anchor artists
+4.  **Year & audio feature similarity** - Tracks from the same year with similar characteristics
+
+For each heuristic, half the tracks are below baseline popularity while half can have any popularity level, ensuring both discovery and familiarity.
+
+Since electronic trap music is more sparsely represented in the data set, It is imperative to implement a specialized approach for that side. Instead of relying on the provided set of heuristics, I directly select a small sample of a list of key artists (TNGHT, Baauer, Bro Safari, What So Not, TroyBoi) that were active during the "golden era" years.
+
+# Initial Data Exploration
+
+Before diving into my theme-specific analysis, let's first explore the general characteristics of the Spotify data set.
+
+## Loading & Preparing Data
+
+First, let's load the two primary data sets - song characteristics and playlist information.
+
+```{r}
+load_songs <- function() {
+  # — download & cache setup ---------------------------------------
+  data_dir  <- file.path("data", "mp03")
+  dest_file <- file.path(data_dir, "spotify_song_analytics.csv")
+  url       <- "https://raw.githubusercontent.com/gabminamedez/spotify-data/refs/heads/master/data.csv"
+  
+  if (!dir.exists(data_dir)) dir.create(data_dir, recursive = TRUE)
+  if (!file.exists(dest_file)) {
+    message("Downloading Spotify song analytics to ", dest_file, " …")
+    download.file(url, destfile = dest_file, mode = "wb", quiet = TRUE)
+  }
+  
+  # — read raw CSV --------------------------------------------------
+  df <- read.csv(dest_file, stringsAsFactors = FALSE, check.names = TRUE)
+  
+  # — load tidy-helpers --------------------------------------------
+  if (!requireNamespace("tidyr",    quietly = TRUE)) install.packages("tidyr")
+  if (!requireNamespace("stringr",  quietly = TRUE)) install.packages("stringr")
+  if (!requireNamespace("dplyr",    quietly = TRUE)) install.packages("dplyr")
+  library(tidyr); library(stringr); library(dplyr)
+  
+  # — artist-string cleaner ----------------------------------------
+  clean_artist_string <- function(x) {
+    x |>
+      str_replace_all("\\['", "")  |>
+      str_replace_all("'\\]", "")  |>
+      str_replace_all("[ ]?'", "") |>
+      str_replace_all("[ ]*,[ ]*", ",")
+  }
+  
+  # — split artists into long format & clean -----------------------
+  df |>
+    separate_longer_delim(artists, delim = ",") |>
+    mutate(artist_name = clean_artist_string(artists)) |>
+    select(-artists)
+}
+
+song_char_df <- load_songs()
+glimpse(song_char_df)
+```
+
+Now I'll load the playlist dataset to examine how songs are grouped by users. This data processing normally takes approximately 3 hours to run, so I've included the full function definition for reference but will load a pre-saved version of the data for rendering purposes.
+
+```{r, eval=FALSE}
+# NOTE: This code block is not executed during rendering (eval=FALSE)
+# It's included for reference to show the full data processing pipeline
+
+load_and_rectangle_playlists <- function(n_slices = NULL) {
+  # Dependencies
+  for (pkg in c("jsonlite","purrr","tibble","dplyr","stringr")) {
+    if (!requireNamespace(pkg, quietly = TRUE)) install.packages(pkg)
+  }
+  library(jsonlite); library(purrr); library(tibble)
+  library(dplyr);    library(stringr)
+  
+  # Helper: strip spotify:<type>: prefix
+  strip_spotify_prefix <- function(x) {
+    str_replace(x, "^spotify:[^:]+:", "")
+  }
+  
+  # Locate JSON files
+  json_dir <- file.path(
+    "data", "mp03", "playlists",
+    "spotify_million_playlist_dataset-main", "data1"
+  )
+  files <- list.files(json_dir, pattern = "\\.json$", full.names = TRUE)
+  if (!is.null(n_slices)) files <- head(files, n_slices)
+  
+  total <- length(files)
+  message("Reading and flattening ", total, " slice(s)…")
+  pb <- txtProgressBar(min = 0, max = total, style = 3)
+  
+  all_slices <- vector("list", total)
+  for (i in seq_along(files)) {
+    slice <- fromJSON(files[i], simplifyVector = FALSE)
+    
+    # Flatten each playlist → tibble of tracks + metadata
+    df_slice <- map_dfr(slice$playlists, function(pl) {
+      map_dfr(pl$tracks, function(tr) {
+        as_tibble(tr)
+      }) %>%
+        mutate(
+          playlist_name      = pl$name,
+          playlist_id        = pl$pid,
+          playlist_followers = pl$num_followers
+        )
+    })
+    
+    all_slices[[i]] <- df_slice
+    setTxtProgressBar(pb, i)
+  }
+  close(pb)
+  
+  # Bind & rename into final rectangular shape
+  bind_rows(all_slices) %>%
+    transmute(
+      playlist_name,
+      playlist_id,
+      playlist_position   = pos,
+      playlist_followers,
+      artist_name,
+      artist_id           = strip_spotify_prefix(artist_uri),
+      track_name,
+      track_id            = strip_spotify_prefix(track_uri),
+      album_name,
+      album_id            = strip_spotify_prefix(album_uri),
+      duration            = duration_ms
+    )
+}
+
+# This function call would process all the playlist data from scratch
+playlist_df <- load_and_rectangle_playlists()
+```
+
+Instead of running the full processing pipeline each time, I'll load the pre-saved dataset:
+
+```{r}
+# Load the pre-processed playlist data from a saved RDS file
+playlist_df <- readRDS("playlist_df.rds")
+
+# Display dimensions and structure
+dim(playlist_df)
+glimpse(playlist_df)
+```
+
+This approach allows for much faster document rendering while still making the full data processing code available for reference or future reprocessing if needed.
+
+## Dataset Summary Statistics
+
+Let's examine some basic metrics about our dataset:
+
+```{r}
+library(dplyr)
+library(tibble)
+```
+
+## How many distinct tracks and artists are represented in the playlist data?
+
+```{r}
+
+track_artist_counts <- tibble(
+  distinct_tracks  = playlist_df |> distinct(track_id)  |> nrow(),
+  distinct_artists = playlist_df |> distinct(artist_id) |> nrow()
+)
+
+track_pop_table <- playlist_df |>
+  group_by(track_id, track_name, artist_name) |>
+  summarise(n_playlists = n_distinct(playlist_id), .groups = "drop")
+
+# Display the counts
+print(track_artist_counts)
+```
+
+## What are the 5 most popular tracks in the playlist data?
+
+```{r}
+# What are the 5 most popular tracks in the playlist data?
+top5_playlist_tracks <- track_pop_table |>
+  arrange(desc(n_playlists), track_name) |>
+  slice_head(n = 5)
+
+top5_playlist_tracks
+```
+
+## What is the most popular track in the playlist data that does not have a corresponding entry in the song characteristics data?
+
+```{r}
+
+most_pop_missing_track <- track_pop_table |>
+  anti_join(song_char_df, by = c("track_id" = "id")) |>
+  arrange(desc(n_playlists), track_name) |>
+  slice_head(n = 1)
+most_pop_missing_track
+
+```
+
+## According to the song characteristics data, what is the most “danceable” track? How often does it appear in a playlist?
+
+```{r}
+most_danceable <- song_char_df |>
+  arrange(desc(danceability), name) |>
+  slice_head(n = 1) |>
+  select(track_id = id, track_name = name, artist_name, danceability)
+
+most_danceable_in_playlists <- most_danceable |>
+  left_join(track_pop_table |> select(track_id, n_playlists),
+            by = "track_id") |>
+  mutate(n_playlists = coalesce(n_playlists, 0L))
+
+most_danceable_in_playlists
+
+```
+
+## Which playlist has the longest average track length?
+
+```{r}
+# Find playlists with notable characteristics
+longest_avg_len_playlist <- playlist_df |>
+  group_by(playlist_id, playlist_name) |>
+  summarise(avg_duration_ms = mean(duration, na.rm = TRUE), .groups = "drop") |>
+  arrange(desc(avg_duration_ms)) |>
+  mutate(avg_duration_min = avg_duration_ms / 60000) |>
+  slice_head(n = 1)
+
+most_followed_playlist <- playlist_df |>
+  group_by(playlist_id, playlist_name) |>
+  summarise(playlist_followers = max(playlist_followers, na.rm = TRUE),
+            .groups = "drop") |>
+  arrange(desc(playlist_followers)) |>
+  slice_head(n = 1)
+
+longest_avg_len_playlist
+```
+
+# Data Visualizations
+
+## Popularity Patterns
+
+```{r}
+# ── prerequisites ────────────────────────────────────────────────
+library(dplyr)
+library(ggplot2)
+
+# ── 1. Merge Spotify popularity with playlist appearances ────────
+pop_vs_playlists <- song_char_df                                         %>% 
+  select(track_id = id, track_name = name, artist_name, popularity)      %>% 
+  left_join(track_pop_table, by = "track_id")                            %>% 
+  mutate(n_playlists = coalesce(n_playlists, 0L))                        # 0 if never used
+
+# ── 2. Correlation tests ──────────────────────────────────────────
+pearson_cor  <- cor(pop_vs_playlists$popularity, pop_vs_playlists$n_playlists,
+                    method = "pearson")
+spearman_cor <- cor(pop_vs_playlists$popularity, pop_vs_playlists$n_playlists,
+                    method = "spearman")
+
+cat(sprintf("Pearson r = %.3f\nSpearman ρ = %.3f\n",
+            pearson_cor, spearman_cor))
+
+# ── 3. Visualization ─────────────────────────────────────────────
+ggplot(pop_vs_playlists,
+       aes(x = n_playlists, y = popularity)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, linewidth = 0.8) +
+  annotate("text",
+           x = max(pop_vs_playlists$n_playlists) * 0.95,
+           y = max(pop_vs_playlists$popularity) * 0.95,
+           hjust = 1, vjust = 1,
+           label = sprintf("Pearson r = %.2f\nSpearman ρ = %.2f",
+                           pearson_cor, spearman_cor)) +
+  labs(title = "Relationship between Spotify Popularity\nand Number of Playlist Appearances",
+       x = "Number of distinct playlists",
+       y = "Spotify popularity score (0-100)",
+       caption = "Trend line: ordinary least-squares fit") +
+  theme_minimal(base_size = 12)
+```
+
+## Popular Music by Year
+
+```{r}
+# ── prerequisites ────────────────────────────────────────────────
+library(dplyr)
+library(ggplot2)
+
+# ── 1. Baseline popularity: "Ultimate" by Denzel Curry ───────────
+baseline_pop <- song_char_df                                                  %>% 
+  filter(tolower(name) == "ultimate",
+         tolower(artist_name) == "denzel curry")                              %>% 
+  slice_head(n = 1)                                                           # in case of duplicates
+baseline_pop_val <- baseline_pop$popularity
+
+if (length(baseline_pop_val) == 0) stop("Baseline track not found.")
+
+cat(sprintf("Popularity of 'Denzel Curry - Ultimate' = %d\n\n", baseline_pop_val))
+
+# ── 2. Select tracks *more popular* than baseline ─────────────────
+popular_songs <- song_char_df %>% 
+  filter(popularity > baseline_pop_val)     # strictly greater than baseline
+
+# ── 3. Count how many popular songs per release year ─────────────
+popular_by_year <- popular_songs                                              %>% 
+  filter(!is.na(year))                                                        %>% 
+  group_by(year)                                                              %>% 
+  summarise(n_popular = n(), .groups = "drop")
+
+# Year with the greatest number of popular songs
+top_year_row <- popular_by_year %>% slice_max(n_popular, n = 1)
+top_year     <- top_year_row$year
+top_count    <- top_year_row$n_popular
+
+cat(sprintf("Year with the most popular songs: %d (%d songs)\n\n",
+            top_year, top_count))
+
+# ── 4. Visualisation ─────────────────────────────────────────────
+ggplot(popular_by_year,
+       aes(x = factor(year), y = n_popular,
+           fill = (year == top_year))) +          
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = c("TRUE" = "steelblue", "FALSE" = "grey70")) +
+  # Show labels every 5 years starting from 1960
+  scale_x_discrete(breaks = c("1960", "1965", "1970", "1975", "1980", "1985", "1990", 
+                              "1995", "2000", "2005", "2010", "2015", "2020")) +
+  labs(title = "Count of Popular Songs by Release Year",
+       subtitle = sprintf("Popular = Spotify Popularity > %d (Popularity of 'Ultimate')",
+                          baseline_pop_val),
+       x = "Release year",
+       y = "Number of popular songs") +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1),
+    plot.margin = margin(b = 40, l = 20, r = 20, t = 20, unit = "pt")  
+  )
+```
+
+## Danceability Trends
+
+```{r}
+# ── prerequisites ────────────────────────────────────────────────
+library(dplyr)
+library(ggplot2)
+
+# ── 1. Average danceability by release year ──────────────────────
+danceability_by_year <- song_char_df                             %>% 
+  filter(!is.na(year))                                           %>% 
+  group_by(year)                                                 %>% 
+  summarise(avg_danceability = mean(danceability, na.rm = TRUE),
+            .groups = "drop")
+
+# ── 2. Locate the peak year ──────────────────────────────────────
+peak_row   <- danceability_by_year %>% slice_max(avg_danceability, n = 1)
+peak_year  <- peak_row$year
+peak_value <- peak_row$avg_danceability
+
+cat(sprintf("Danceability peaked in %d (average = %.3f)\n\n",
+            peak_year, peak_value))
+
+# ── 3. Visualisation ─────────────────────────────────────────────
+ggplot(danceability_by_year,
+       aes(x = year, y = avg_danceability)) +          
+  geom_line(linewidth = 0.8, color = "grey40") +
+  geom_point(size = 2, color = "grey40") +
+  geom_point(data = peak_row, 
+             aes(x = year, y = avg_danceability),
+             color = "steelblue", size = 3) +
+  scale_x_continuous(breaks = seq(1920, 2025, by = 5)) +
+  scale_y_continuous(breaks = seq(0.35, 0.75, by = 0.05)) +
+  labs(title = "Average Danceability of Spotify Tracks by Release Year",
+       subtitle = sprintf("Peak Year: %d (AVG = %.3f)", peak_year, peak_value),
+       x = "Release Year",
+       y = "Average Danceability (0–1)") +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid.minor = element_blank(),
+    plot.subtitle = element_text(color = "steelblue", face = "bold"),
+    plot.margin = margin(b = 40, r = 20, t = 30, l = 20, unit = "pt")
+  )
+```
+
+## Decade Representation
+
+```{r}
+# ── prerequisites ────────────────────────────────────────────────
+library(dplyr)
+library(ggplot2)
+
+# ── 1. Attach release year to every playlist row ─────────────────
+playlist_years <- playlist_df                                             %>% 
+  left_join(song_char_df %>% select(track_id = id, year),                 # add 'year'
+            by = "track_id")                                              %>% 
+  filter(!is.na(year))                                                    # keep rows with a year
+
+# ── 2. Compute decades (e.g. 1990, 2000, …) ──────────────────────
+playlist_decades <- playlist_years                                        %>% 
+  mutate(decade = (year %/% 10) * 10)                                     # integer division
+
+# ── 3. Count playlist rows per decade ────────────────────────────
+decade_counts <- playlist_decades                                         %>% 
+  group_by(decade)                                                        %>% 
+  summarise(n_entries = n(), .groups = "drop")
+
+top_decade_row <- decade_counts %>% slice_max(n_entries, n = 1)
+top_decade     <- top_decade_row$decade
+top_count      <- top_decade_row$n_entries
+
+cat(sprintf("Most-represented decade on playlists: %ds (%d entries)\n\n",
+            top_decade, top_count))
+
+# ── 4. Visualisation ─────────────────────────────────────────────
+ggplot(decade_counts,
+       aes(x = factor(decade), y = n_entries,
+           fill = (decade == top_decade))) +         # highlight flag
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = c("TRUE" = "steelblue", "FALSE" = "grey70")) +
+  labs(title = "Decade Representation in User Playlists",
+       subtitle = sprintf("Top decade: %ds (%d Playlist Entries)",
+                          top_decade, top_count),
+       x = "Decade",
+       y = "Number of Playlist Entries") +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.subtitle = element_text(color = "steelblue", face = "bold"),
+    )
+```
+
+## Musical Key Distribution
+
+```{r}
+# ── prerequisites ────────────────────────────────────────────────
+library(dplyr)
+library(ggplot2)
+
+# ── 1. Map numeric keys (0–11) to pitch-class names ──────────────
+key_names <- c("C", "C#/Db", "D", "D#/Eb", "E", "F",
+               "F#/Gb", "G", "G#/Ab", "A", "A#/Bb", "B")
+
+key_counts <- song_char_df                                       %>% 
+  filter(!is.na(key) & key %in% 0:11)                            %>% 
+  mutate(key_name = factor(key_names[key + 1], levels = key_names)) %>% 
+  count(key_name, name = "n_songs")
+
+# ── 2. Polar (circular) bar-chart ───────────────────────────────
+ggplot(key_counts,
+       aes(x = key_name, y = n_songs)) +
+  # Increase width slightly to make bars more prominent
+  geom_col(width = 1.05, fill = "steelblue", colour = "white") +
+  # Adjust polar coordinates to make the circle larger
+  coord_polar(start = -pi/12, clip = "off") +
+  # Position the count labels further outside the bars
+  geom_text(aes(label = n_songs, y = n_songs + max(n_songs)*0.12),
+            size = 3.5) +
+  # Make key names larger and more prominent
+  scale_x_discrete(labels = function(x) paste0("\n", x, "\n")) +
+  labs(title = "Frequency of Musical Keys in the Song Dataset",
+       subtitle = "(Chromatic Cycle shown in Polar Coordinates)",
+       x = NULL, y = NULL) +
+  theme_minimal(base_size = 14) +  # Increased base font size
+  theme(
+    # Remove y-axis elements for cleaner look
+    axis.text.y = element_blank(),
+    panel.grid = element_blank(),
+    # Make key names larger and bolder
+    axis.text.x = element_text(size = 13, face = "bold"),
+    # Expand the plot area
+    plot.margin = margin(t = 20, r = 40, b = 20, l = 40, unit = "pt"),
+    # Increase plot area size
+    aspect.ratio = 0.9
+  ) +
+  # Expand drawing area to accommodate labels
+  expand_limits(y = max(key_counts$n_songs) * 1.25)  # More vertical space
+```
+
+## Track Duration Analysis
+
+```{r}
+# ── prerequisites ────────────────────────────────────────────────
+library(dplyr)
+library(ggplot2)
+library(scales)          # for nicer axis labels
+
+# ── 1.  Compute track length in minutes for every playlist entry ─
+bin_w   <- 0.5                      # 30-second bins (adjust if desired)
+
+playlist_lengths <- playlist_df                                                   %>% 
+  mutate(duration_min = duration / 60000,                       # ms → minutes
+         length_bin   = floor(duration_min / bin_w) * bin_w)    # left edge of bin
+
+# ── 2.  Find the bin with the MOST playlist entries  ------------
+length_bin_counts <- playlist_lengths                                       %>% 
+  count(length_bin, name = "n_entries")                                     %>% 
+  arrange(desc(n_entries))
+
+top_bin         <- length_bin_counts %>% slice(1)
+top_bin_start   <- top_bin$length_bin
+top_bin_end     <- top_bin_start + bin_w
+top_bin_count   <- top_bin$n_entries
+
+cat(sprintf(
+  "Most common track-length range on playlists: %.1f–%.1f minutes (%d entries)\n\n",
+  top_bin_start, top_bin_end, top_bin_count))
+
+# Completely redesigned track length histogram
+# First, limit the data to a reasonable range (0-10 minutes)
+# Completely redesigned track length histogram with half-minute increments
+# First, limit the data to a reasonable range (0-10 minutes)
+playlist_lengths_filtered <- playlist_lengths %>%
+  filter(duration_min <= 10)  # Focus on tracks under 10 minutes
+
+ggplot(playlist_lengths_filtered, aes(x = duration_min)) +
+  # Create a nicer histogram with better bin width
+  geom_histogram(binwidth = bin_w, 
+                 fill = "cornflowerblue", 
+                 color = "white",
+                 alpha = 0.7) +
+  # Add a vertical line at the modal value for emphasis
+  # Fixed: replaced 'size' with 'linewidth'
+  geom_vline(xintercept = (top_bin_start + top_bin_end)/2, 
+             color = "tomato", 
+             linetype = "dashed", 
+             linewidth = 1) +
+  # Highlight the modal bin with a different fill
+  geom_histogram(data = subset(playlist_lengths_filtered, 
+                               duration_min >= top_bin_start & 
+                                 duration_min < top_bin_end),
+                 binwidth = bin_w,
+                 fill = "tomato", 
+                 color = "white",
+                 alpha = 0.9) +
+  # Add clearer annotation for the mode
+  annotate("label", 
+           x = top_bin_end + 0.5, 
+           y = top_bin_count * 0.9,
+           label = sprintf("Most common length:\n%.1f–%.1f min\n(%s entries)", 
+                           top_bin_start, top_bin_end, 
+                           format(top_bin_count, big.mark=",")),
+           hjust = 0,
+           size = 4,
+           color = "black",
+           fill = "white",
+           alpha = 0.9) +
+  # Better axis scaling with half-minute increments
+  scale_x_continuous("Track Length (minutes)", 
+                     breaks = seq(0, 10, by = 0.5),  # Changed to 0.5 intervals
+                     expand = c(0.02, 0)) +
+  scale_y_continuous("Number of Playlist Entries",
+                     labels = scales::comma_format(),
+                     expand = c(0, 0)) +
+  # Improved title and subtitle
+  labs(title = "Track Length Distribution in User Playlists",
+       subtitle = "30-second bins with highlighted mode") +
+  # Enhanced theme
+  theme_minimal(base_size = 13) +
+  theme(
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_line(color = "grey90"),
+    panel.grid.major.y = element_line(color = "grey90"),
+    axis.title.x = element_text(margin = margin(t = 10)),
+    axis.title.y = element_text(margin = margin(r = 10)),
+    plot.title = element_text(size = 16, face = "bold"),
+    plot.subtitle = element_text(size = 12),
+    plot.margin = margin(t = 20, r = 40, b = 20, l = 20),
+    # Make x-axis labels smaller and angled for better fit
+    axis.text.x = element_text(size = 9, angle = 45, hjust = 1)
+  ) +
+  # Set reasonable coordinate limits
+  coord_cartesian(ylim = c(0, max(length_bin_counts$n_entries) * 1.05),
+                  xlim = c(0, 10),
+                  expand = FALSE)
+```
+
+# Golden Era Duo Playlist Construction
+
+Now that we've explored the general Spotify data landscape, we can focus on creating our themed playlist that celebrates the golden era fusion of electronic trap and rap music.
+
+## Preparing Songs for Playlist Building
+
+First, let's consolidate the song data into a format optimized for our analysis:
+
+```{r}
+library(dplyr)
+library(stringr)
+library(ggplot2)
+library(tidyr)
+
+# Create a clean, unique songs dataset for easier analysis
+song_char_unique <- song_char_df %>% 
+  group_by(track_id = id) %>%                     # collapse multi-artist rows
+  summarise(track_name   = first(name),
+            artist_names = str_c(unique(artist_name),
+                                 collapse = ", "),
+            year         = first(year),
+            key          = first(key),
+            mode         = first(mode),
+            tempo        = first(tempo),
+            acousticness = first(acousticness),
+            danceability = first(danceability),
+            energy       = first(energy),
+            valence      = first(valence),
+            liveness     = first(liveness),
+            popularity   = first(popularity),
+            .groups = "drop")
+```
+
+## Playlist Builder Function
+
+This function implements our core methodology for finding tracks related to an anchor track:
+
+```{r}
+pick_playlist_candidates <- function(anchor_title,
+                                     anchor_artist,
+                                     n_final          = 160,
+                                     tempo_tol        = 10,
+                                     val_tol          = 0.05,
+                                     energy_tol       = 0.05,
+                                     pool_size        = 100,
+                                     baseline_pop_val_N = baseline_pop_val) {
+  
+  message(sprintf("\n### Anchor: %s — %s", anchor_title, anchor_artist))
+  
+  # locate anchor track --------------------------------------------------------
+  anchor_row <- song_char_unique %>% 
+    filter(str_to_lower(track_name) == str_to_lower(anchor_title),
+           str_detect(artist_names,
+                      regex(anchor_artist, ignore_case = TRUE))) %>% 
+    slice_head(n = 1)
+  
+  if (nrow(anchor_row) == 0) stop("Anchor track not found.")
+  
+  anchor_id    <- anchor_row$track_id
+  anchor_key   <- anchor_row$key
+  anchor_tempo <- anchor_row$tempo
+  anchor_year  <- anchor_row$year
+  anchor_mode  <- anchor_row$mode
+  anchor_val   <- anchor_row$valence
+  anchor_eng   <- anchor_row$energy
+  
+  # ── Heuristic 1 : co-appears on same playlists -----------------------------
+  
+  per_heur <- ceiling(n_final / 4)      # ¼ of the final size (≈ 20 when n_final = 80)
+  
+  h1 <- {
+    anchor_lists <- playlist_df |>
+      filter(track_id == anchor_id) |>
+      distinct(playlist_id)
+    
+    playlist_df |>
+      semi_join(anchor_lists, by = "playlist_id") |>
+      filter(track_id != anchor_id) |>
+      count(track_id, sort = TRUE, name = "co_appearances") |>
+      left_join(song_char_unique, by = "track_id") |>
+      arrange(desc(co_appearances)) |>
+      mutate(heuristic = "Co-appears") |>
+      slice_head(n = per_heur * 2)                 # keep a little slack for pop-split
+  }
+  
+  # ── Heuristic 2 : same key ± tempo → rank by absolute tempo distance ----------
+  h2 <- song_char_unique |>
+    filter(key == anchor_key,
+           abs(tempo - anchor_tempo) <= tempo_tol,
+           track_id != anchor_id) |>
+    mutate(rank_metric = abs(tempo - anchor_tempo),
+           heuristic   = "Key & Tempo") |>
+    arrange(rank_metric) |>
+    slice_head(n = per_heur * 2)
+  
+  # ── Heuristic 3 : same artist → rank by *earliest* release --------------------
+  h3 <- song_char_unique |>
+    filter(str_detect(artist_names,
+                      regex(anchor_artist, ignore_case = TRUE)),
+           track_id != anchor_id) |>
+    arrange(year) |>
+    mutate(heuristic = "Same Artist") |>
+    slice_head(n = per_heur * 2)
+  
+  # ── Heuristic 4 : same year & profile → rank by Euclidean distance ------------
+  feature_cols <- c("acousticness","danceability","energy","valence","liveness")
+  anchor_vec   <- anchor_row |> select(all_of(feature_cols)) |> as.numeric()
+  
+  h4 <- song_char_unique |>
+    filter(year == anchor_year, track_id != anchor_id) |>
+    rowwise() |>
+    mutate(dist      = sqrt(sum((c_across(all_of(feature_cols)) - anchor_vec)^2)),
+           heuristic = "Year & Profile") |>
+    ungroup() |>
+    arrange(dist) |>
+    slice_head(n = per_heur * 2)
+  
+  # ──────────────────────────────────────────────────────────────────────────────
+  #  STEP 2 ⟶ guarantee exactly ¼ from each heuristic BEFORE popularity split
+  # ──────────────────────────────────────────────────────────────────────────────
+  candidate_pool <- bind_rows(h1, h2, h3, h4) |>
+    distinct(track_id, .keep_all = TRUE)           
+  
+  equalised_pool <- candidate_pool |>
+    group_by(heuristic) |>
+    slice_head(n = per_heur) |>
+    ungroup()
+  
+  # If removing duplicates left us short for some heuristic, top-up from the same
+  # heuristic's "reserve" rows kept above.  (This ensures exactly ¼ each.)
+  need_extra <- per_heur - table(equalised_pool$heuristic)
+  if (any(need_extra > 0)) {
+    extras <- candidate_pool |>
+      anti_join(equalised_pool, by = "track_id") |>  # Ensure no track_id duplicates
+      group_by(heuristic) |>
+      mutate(rnk = row_number()) |>
+      filter(rnk <= need_extra[heuristic]) |>
+      ungroup()
+    equalised_pool <- bind_rows(equalised_pool, extras)
+  }
+  
+  candidate_pool <- equalised_pool        # <-- single line swap
+  
+  # ── Split by popularity relative to baseline -------------------------------
+  # ── Split pools --------------------------------------------------
+  half <- n_final %/% 2L                 # integer division
+  
+  low_pop <- candidate_pool %>%          # ❶ strictly under baseline
+    filter(popularity <  baseline_pop_val_N)
+  
+  any_pop <- candidate_pool              # ❷ no popularity restriction
+  
+  # ── Modified selection logic to prevent duplicates ----------------------
+  # First, take what we can from low_pop
+  take_low <- slice_head(low_pop, n = min(half, nrow(low_pop)))
+  
+  # Then take from any_pop, ensuring no duplicates
+  take_any <- any_pop %>%
+    # This ensures we don't select tracks already in take_low
+    anti_join(take_low, by = "track_id") %>%
+    slice_head(n = min(half, nrow(.)))
+  
+  # Calculate how many more we need from each category
+  short_low <- half - nrow(take_low)
+  short_any <- half - nrow(take_any)
+  
+  # Fill shortfalls if needed
+  if (short_low > 0) {
+    # Get more tracks from any_pop that aren't already selected
+    more_from_any <- any_pop %>%
+      anti_join(bind_rows(take_low, take_any), by = "track_id") %>%
+      slice_head(n = short_low)
+    
+    take_low <- bind_rows(take_low, more_from_any)
+  }
+  
+  if (short_any > 0) {
+    # Get more tracks from low_pop that aren't already selected
+    more_from_low <- low_pop %>%
+      anti_join(bind_rows(take_low, take_any), by = "track_id") %>%
+      slice_head(n = short_any)
+    
+    take_any <- bind_rows(take_any, more_from_low)
+  }
+  
+  # ── Combine & finish --------------------------------------------
+  final <- bind_rows(take_low, take_any) %>%
+    # Extra distinct to guarantee no duplicates
+    distinct(track_id, .keep_all = TRUE) %>%
+    arrange(desc(popularity)) %>%
+    slice_head(n = n_final) %>% 
+    mutate(anchor_title  = anchor_title,
+           anchor_artist = anchor_artist) %>% 
+    relocate(anchor_title, anchor_artist)
+  
+  # ── quick plot --------------------------------------------------------------
+  # Select 20 highest and 20 lowest popularity tracks
+  plot_tracks <- bind_rows(
+    head(final, 20),  # 20 highest popularity tracks 
+    tail(final, 20)   # 20 lowest popularity tracks
+  )
+  
+  plot <- ggplot(plot_tracks,
+                 aes(reorder(track_name, popularity),
+                     popularity,
+                     fill = heuristic)) +
+    geom_col(colour = "white") +
+    coord_flip() +
+    labs(title = sprintf("Top %d tracks for \"%s\" — %s\n(half below baseline)",
+                         n_final, anchor_title, anchor_artist),
+         x = NULL, y = "Spotify popularity", fill = "Heuristic") +
+    theme_minimal(base_size = 11) +
+    # Center the title and make sure it doesn't get cut off
+    theme(
+      plot.title = element_text(hjust = 0.5),
+      plot.margin = margin(t = 20, r = 40, b = 20, l = 20)
+    )
+  
+  list(data = final, plot = plot)
+}
+```
+
+## Generating Anchor-Based Playlists
+
+Let's create our initial playlist pools using the two anchor tracks that represent different sides of the golden era fusion:
+
+```{r}
+# Create playlists based on anchor tracks
+anchor1 <- pick_playlist_candidates("Core", "RL Grime")
+anchor2 <- pick_playlist_candidates("Broke Boi", "Playboi Carti")
+
+# Display the first few tracks from each playlist
+head(anchor1$data, 10)
+head(anchor2$data, 10)
+
+# Show the visualizations
+print(anchor1$plot)
+print(anchor2$plot)
+```
+
+## Special Curation for Electronic Trap
+
+As explained in earlier our methodology, electronic trap music is more sparsely represented in the dataset. To ensure authentic representation of this side of the golden era, we'll implement a specialized selection approach:\
+\
+For our "Rap" side, we will continue to use the provided heuristics, and pick 6 that are the most popular, that fall within our target years:\
+\
+
+```{r}
+# PRE-CURATION FILTRATION - Special Approach for EDM Tracks
+years_of_interest <- 2012:2015  # The "Golden Era" years
+
+# Critical artists for the electronic trap side (Anchor 1: "Core" by RL Grime)
+artists_anchor1 <- c(
+  "TNGHT", "Baauer", "Bro Safari", "What So Not", "TroyBoi"
+)
+artists_regex <- regex(paste(artists_anchor1, collapse = "|"), ignore_case = TRUE)
+
+# Locate track IDs to exclude anchor tracks from their own lists
+core_track_id <- song_char_unique %>% 
+  filter(str_to_lower(track_name) == "core",
+         str_detect(artist_names, regex("RL Grime", ignore_case = TRUE))) %>% 
+  slice_head(n = 1) %>% 
+  pull(track_id)
+
+brokeboi_track_id <- song_char_unique %>% 
+  filter(str_to_lower(track_name) == "broke boi",
+         str_detect(artist_names, regex("Playboi Carti", ignore_case = TRUE))) %>% 
+  slice_head(n = 1) %>% 
+  pull(track_id)
+
+# For Electronic Trap side (Anchor 1): Direct selection by artist and year
+# Bypassing heuristics due to sparse representation in the dataset
+final_anchor1 <- song_char_unique %>% 
+  filter(track_id != core_track_id,
+         year %in% years_of_interest,
+         str_detect(artist_names, artists_regex)) %>% 
+  arrange(popularity)               # lowest popularity first
+
+# For Rap side (Anchor 2): Using standard heuristics with year filter
+# Taking the six MOST-popular tracks from the golden era
+final_anchor2 <- anchor2$data %>%
+  filter(year %in% years_of_interest) %>%     # 2012-2015
+  arrange(desc(popularity)) %>%               # MOST-popular first (changed)
+  slice_head(n = 6) %>%                       # exactly 6 tracks
+  select(track_id, track_name, year, key, mode, tempo, acousticness, everything())
+
+# View results
+final_anchor1
+final_anchor2  # Variable name changed to reflect new selection criteria
+```
