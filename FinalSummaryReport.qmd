@@ -1,0 +1,193 @@
+---
+title: "How Does School Funding Distribution Impact Educational Outcomes in New York State?"
+subtitle: "An Analysis of Funding Disparities and Their Effects on Underserved Communities"
+author: 
+  - "mehroozh"
+  - "gbennett90" 
+  - "faisal1000x"
+  - "mcg219"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    theme: cosmo
+    code-fold: true
+    css: style.css
+  pdf:
+    toc: true
+    number-sections: true
+editor: visual
+---
+
+::: {.content-box}
+
+## Executive Summary
+
+The distribution of school funding across New York State (NYS) districts is a key factor influencing student success. Funding affects many aspects of education, including class size, curriculum quality, extracurricular opportunities, and student support services. However, financial resources are unevenly distributed, often tied to local wealth and property taxes, leading to significant variation in investment across communities.
+
+This project explores how these funding differences impact educational outcomes, particularly in underserved areas where students face challenges like poverty, limited enrichment programs, and aging facilities. While wealthier districts can provide a richer educational environment, schools in economically disadvantaged communities often struggle with scarce resources, which can hinder student achievement and future opportunities.
+
+By analyzing school spending, student performance, and community factors, this project aims to deepen understanding of how funding disparities shape education across New York State.
+
+
+
+## Motivation
+
+This project was inspired by one of our team member's personal experiences growing up in New York and attending public school. Their educational journey revealed how insufficient school funding can have a direct impact on the quality of instruction, the availability of academic support, and overall student development. Their school lacked extracurricular programs, tutoring services, and other critical resources, while teachers were often stretched thin, unable to provide the individual attention many students needed.
+
+After immigrating to the United States, our teammate was placed a grade ahead, skipping the fourth grade. While this appeared to be an academic advancement, the lack of transitional support made it difficult to catch up with unfamiliar material. As a result, they often felt stagnant in their learning, which contributed to a sense of being underprepared for the academic rigor of college.
+
+These firsthand challenges helped shape our team's collective interest in exploring the relationship between school funding and educational outcomes. We aim to better understand how disparities in funding contribute to unequal educational experiences—particularly for students in under-resourced communities.
+
+
+## Data Sources
+
+To support our analysis, we drew from a variety of reliable, publicly available datasets and academic research. These sources provided a mix of quantitative indicators—such as funding levels, test scores, and graduation rates—as well as qualitative insights into educational equity, access, and support structures. Key data sources included:
+
+- **New York State Education Department (NYSED):** District-level data on funding, enrollment, test scores, and graduation rates.
+
+- **Equity In Education New York (EquityInEdNY):** Reports on access to advanced courses, extracurriculars, and student support across counties.
+
+- **OpenBudget.NY.gov:** Details on how educational funds are allocated across NYS districts.
+
+- **NCES Peer Group Comparison Tool:** Benchmarks NYS funding and performance against national peers.
+
+- **The Shanker Institute -- "Does Money Matter in Education?":** Study on the impact of school finance reforms on student outcomes.
+
+- **Data.nysed.gov:** Interactive tools and datasets on enrollment, post-secondary outcomes, and demographics.
+
+These sources collectively allowed us to analyze the relationship between school funding and student success from multiple angles, blending hard data with broader contextual understanding. This multi-source approach strengthened the depth and credibility of our findings.
+
+
+
+## Prior Research
+
+Before diving into the NYS-specific analysis, it is important to understand what existing research reveals about this issue. The 2025 report *Does Money Matter in Education?* by the **Albert Shanker Institute** reinforces the connection between increased school funding and improved academic outcomes. The report finds that targeted investments in public education—particularly in low-income communities—lead to higher test scores, better student engagement, and stronger graduation rates. These improvements are especially significant for historically underfunded districts, where even modest funding increases can yield meaningful gains. In the context of New York, where school funding varies widely between districts, these findings underscore the importance of analyzing how budget disparities influence short-term academic indicators such as Regents scores, SAT/ACT performance, and GPA.
+
+Further reinforcing this connection, the **National Education Association's (NEA) report** *Money Matters* highlights the positive impact of school funding on student achievement, especially for minority and economically disadvantaged students. The report notes that underfunded schools often face challenges such as overcrowded classrooms, high teacher turnover, and a lack of educational resources—all of which contribute to lower academic performance. These systemic issues are particularly pronounced in New York, where some districts consistently receive fewer resources than others. As this analysis will demonstrate, variations in school funding are directly tied to short-term academic metrics. Understanding these relationships is essential to advocating for more equitable funding policies that support early student success and reduce educational gaps across the state.
+
+We have used this research work's findings to continue with our research work and findings collected in these were really good to give us directions.
+
+
+---
+
+## Research Questions & Analytical Findings
+
+![Research Framework and Sub-Questions Overview](images/image1.png){#fig-research-overview width="100%"}
+
+### 1. What is the correlation between funding levels and student academic success (e.g., test scores, graduation rates)?
+
+This analysis investigates how differences in school funding influence educational outcomes, with a focus on economically challenged communities. By examining data on per-student spending, poverty rates, test scores, and graduation rates, it becomes clear that districts with higher funding generally experience stronger student performance and greater access to advanced coursework and extracurricular opportunities. 
+
+Conversely, districts with lower funding often struggle to provide these quality educational resources. A consistent pattern emerged showing that districts serving higher-poverty populations typically receive less funding per student, highlighting a concerning mismatch between need and resource allocation. 
+
+While increased funding is strongly associated with improved academic outcomes—such as higher proficiency in reading and math—student achievement is shaped by a complex set of factors, including social, demographic, and community influences. Moreover, districts that exercise greater local control over their funding tend to perform better, indicating that not only the amount but also the management and allocation of resources are critical to supporting student success. 
+
+Effective investments in instructional quality, student support services, and efforts to reduce class sizes further contribute to positive outcomes. Ultimately, while equitable funding is essential, it is only one part of a broader set of factors that together determine educational success across diverse school districts.
+
+### 2. How do funding differences affect access to advanced coursework and college prep programs?
+
+Advanced coursework and college preparation programs like AP classes, dual enrollment sources, SAT prep practices, and college counseling departments are quite essential stepping stones for students aspiring to succeed in higher education and make career plans in this competitive world. But the availability of these programs is **far from equal across New York State**. The analysis we have done reveals a sharp divide between wealthier, well-funded counties and underfunded, underserved districts around the NY state.
+
+The EquityInEdNY data underscores this disparity: schools in the bottom 20% of funding per student offer roughly **40% fewer AP and honors courses** compared to **their more affluent counterparts**. These unfairly funded schools often face teacher shortages, outdated instructional materials, and problems to support specialized programs that require additional credentials or certification.
+
+Here is one example for the same: the data visualizations for **Rockland**, **Dutchess**, **Suffolk**, and **New York** counties clearly reflect this divide. New York County, which receives the highest funding and has the most schools (over 9,000), leads in both the **total number of schools offering advanced coursework** and **college prep programming**, as well as in **total funding allocated**—exceeding **$35 million**. In contrast, counties like Dutchess and Rockland, while still funded relatively well compared to rural districts, show a substantially smaller presence of these opportunities.
+
+### 3. What is the correlation between funding levels and long-term student outcomes (e.g., college enrollment, employment)?
+
+New York State, while one of the top spenders on public education nationally, faces persistent disparities in how school funding is distributed. Wealthier districts typically receive $2,000 to $3,000 more per student than poorer districts due to an overreliance on local property taxes and outdated funding formulas. This imbalance results in a significant resource gap that directly affects students' educational experiences and opportunities.
+
+Underfunded schools often lack experienced teachers, advanced coursework such as AP classes, updated technology, and robust college or career counseling services. These deficiencies contribute to lower test scores, reduced graduation rates, and weaker college preparedness among students in these districts. The consequences extend beyond high school—fewer students from underfunded schools enroll in or complete college, and those who do often face underemployment, particularly in high-demand fields.
+
+Equitable funding has been shown to improve student outcomes, especially for those from low-income backgrounds. Increased investment in disadvantaged schools leads to measurable gains in academic performance, college success, and lifetime earnings. Closing the funding gap is not only essential for educational equity, but also for promoting long-term social and economic mobility across New York State.
+
+### 4. How does the proportional funding of Student and Staff Support Services impact student success?
+
+One of the most insightful aspects of our analysis focused on the allocation to student and staff support services—counselors, social workers, nurses, and mental health professionals. This part of this project would not ever have existed in the first place if it wasn’t for the presence of these professionals in a school setting.
+
+While our overall analysis unfortunately did not yield any immediately visible strong ties between graduation rates and the relative level of funding for student and staff support services, one particular finding of interest did appear to be universally eminent.
+
+Our finding of interest was that, across all levels of relative overall funding, schools with the highest proportion of Staff and Student Support funding yielded the highest Regents and Advanced Regents Diploma rates. The difference in outcomes between districts that allocated at least 8% of their budget to support services versus those allocating less than 4% was substantial—up to 12 percentage points in graduation metrics.
+
+While the exact value of a regents or advanced regents diploma is somewhat unknown, there is an obvious tie to a higher chance of both college admission and college success. 
+
+## Connecting Back to the Overarching Question
+
+Each of these analyses ties directly into our central question: how funding impacts educational outcomes. The evidence is clear: funding does matter—and not just in total quantity but in how it is allocated. Strategic investment in enrichment programs and support services can yield measurable academic and social benefits. Furthermore, the long-term impact on college access and labor market success reaffirms the critical role that equitable funding plays in leveling the playing field.
+
+## Policy Implications and Recommendations
+
+From our findings, several policy directions emerge:
+
+- **Modernize Funding Formulas**: NYS should revise the Foundation Aid formula to better account for cost-of-living differences and poverty indices.
+
+- **Strengthen Accountability**: Implement a statewide reporting system that tracks how funds are allocated within each district, especially to instructional and support services.
+
+- **Targeted Funding Boosts**: Increase state aid to underperforming districts with conditions tied to improvements in program offerings and staff hiring.
+
+- **Invest in Support Services**: Make mental health, counseling, and career guidance a top funding priority across all districts.
+
+- **Expand College Prep Access**: Provide grants for AP teacher training, dual enrollment programs, and testing fee waivers in low-income schools.
+
+## Suggestions for Future Work
+
+When allocating school funding, it's crucial to track how the money is used rather than just distributing it without oversight. Analyzing how funds are allocated within schools—such as to departments, clubs, athletics, and materials—ensures transparency and helps reveal how funding impacts educational outcomes across New York State.
+
+- Modernize the Foundation Aid formula to reflect up-to-date demographic and economic data.
+
+- Require detailed tracking of intra-school spending, including departmental, extracurricular, and instructional allocations.
+
+- Implement a statewide equity dashboard to monitor per-student funding, absenteeism, graduation rates, and performance outcomes.
+
+- Tie funding to accountability metrics, such as improvements in test scores, attendance, and post-secondary success.
+
+- Invest early in K–3 reading and math programs to close learning gaps before they widen.
+
+- Expand wraparound services—mental health care, housing stability support, and college counseling.
+
+- Enforce intra-district equity rules, ensuring that high-need schools receive proportionally more funding and support.
+
+## References
+
+1. Equity in Education New York. Course Access Data. <https://equityinedny.edtrust.org/course-access/>
+
+2. New York State Education Department. Enrollment and Staff Statistics. <https://www.p12.nysed.gov/irs/statistics/enroll-n-staff/home.html>
+
+3. New York State Education Department. Higher Education Enrollment Data. <https://data.nysed.gov/highered-enrollment.php?year=2024&county=13>
+
+4. New York State Education Department. District Profiles. <https://data.nysed.gov/profile.php?county=13>
+
+5. Albert Shanker Institute. Does Money Matter in Education? <https://www.shankerinstitute.org/resource/does-money-matter-in-education>
+
+6. National Center for Education Statistics. Peer Group Data. <https://nces.ed.gov/edfin/search/peergroupdata.asp>
+
+7. New York State Division of Budget. School Finance Transparency. <https://openbudget.ny.gov/sft/sft-districts.html>
+
+8. Citizens Budget Commission. More Money, Little Accountability. <https://cbcny.org/research/more-money-little-accountability>
+
+9. EdTrust New York. School District Investment Data Tool. <https://newyork.edtrust.org/online-data-tool-allows-users-to-explore-how-new-york-school-districts-are-investing-resources/>
+
+10. New York State Office of the State Comptroller. Elementary and Secondary Education Finance Report. <https://www.osc.ny.gov/reports/finance/2023-fcr/elementary-and-secondary-education>
+
+11. National Assessment of Educational Progress. Nations Report Card. <https://www.nationsreportcard.gov/>
+
+12. The Century Foundation. Boosting Educational Outcomes Through School Finance Reform. <https://tcf.org/content/report/boosting-educational-outcomes-through-school-finance-reform/>
+
+13. New York Post. Study Reveals NYC Public School Student Chronic Absence. <https://nypost.com/2025/03/06/us-news/bombshell-study-reveals-300k-nyc-public-school-students-nearly-35-chronically-absent-as-grades-plummet-spending-surges/>
+
+14. Education Law Center. A Tale of Two States: Equity Outperforms Inequity. <https://edlawcenter.org/a-tale-of-two-states-equity-outperforms-inequity/>
+
+
+## Individual Reports
+
+<https://faisal1000x.github.io/STA9750-2025-SPRING/individual_report.html>
+
+<https://gbennett90.github.io/STA9750-2025-SPRING/IndividualFinalProject.html>
+
+<https://mcg219.github.io/STA9750-2025-SPRING/final_individual_report.html>
+
+<https://mehroozh.github.io/STA9750-2025-SPRING/final_sta_individual_project.html>
+
+
+:::
